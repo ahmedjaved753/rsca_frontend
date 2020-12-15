@@ -1,0 +1,5 @@
+.logo-container {
+  grid-column: 1 / span 11;
+  grid-row: 1/2;
+  padding: 10px;
+}

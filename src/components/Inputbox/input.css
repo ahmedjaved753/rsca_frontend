@@ -1,0 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
+.input-container {
+  display: inline-block;
+  border-radius: 10px;
+  background: #eff0f6;
+}
+
+.ant-input-prefix {
+  padding-right: 10px;
+}
+
+.ant-input::placeholder {
+  font-family: Poppins;
+}

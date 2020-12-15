@@ -1,0 +1,8 @@
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  grid-column: 8 / span 3;
+  grid-row: 2/3;
+  align-self: center;
+}
