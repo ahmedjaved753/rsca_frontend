@@ -1,6 +1,6 @@
 .signup-container {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: 100px auto 50px;
+  grid-template-rows: 10% auto 5%;
   height: 100vh;
 }

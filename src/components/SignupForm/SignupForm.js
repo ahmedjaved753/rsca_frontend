@@ -15,8 +15,9 @@ function SignupForm() {
             <Input placeholder="Name" name="name" prefixIcon={FaRegUser} />
             <Input placeholder="Username" name="username" prefixIcon={FaRegUser} />
             <Input placeholder="Email" name="email" prefixIcon={FaRegEnvelope} />
-            <Input placeholder="Password" name="password" prefixIcon={FaKey} />
+            <Input type="password" placeholder="Password" name="password" prefixIcon={FaKey} />
             <Input
+                type="password"
                 placeholder="Confirm Password"
                 name="confirm-password"
                 prefixIcon={FaKey} />

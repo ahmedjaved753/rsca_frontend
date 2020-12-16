@@ -9,7 +9,7 @@ function SigninForm() {
     return (
         <form className="signin-form">
             <Input placeholder="Username" name="username" prefixIcon={FaRegUser} />
-            <Input placeholder="Password" name="password" prefixIcon={FaKey} />
+            <Input type="password" placeholder="Password" name="password" prefixIcon={FaKey} />
             <span className="forgot-password">Forgot Password</span>
             <Button style={{ alignSelf: "center", backgroundColor: "#5F2EEA", paddingRight: "30px", paddingLeft: "30px", }} type="primary" shape="round" size="large">
                 Signin
