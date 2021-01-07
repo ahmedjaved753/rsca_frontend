@@ -3,7 +3,7 @@ import './input.css'
 import { Input } from 'antd';
 
 
-function Inputbox(props) {
+function Inputbox({ PrefixIcon, handleOnchange, ...props }) {
     const [hasFocus, setHasFocus] = useState(false);
     const handleFocus = () => setHasFocus(true);
     const handleBlur = () => setHasFocus(false);
@@ -11,10 +11,12 @@ function Inputbox(props) {
     return (
         <div className="input-container">
             <Input
-                style={{ height: '60px', borderRadius: "10px", ...focusStyles }}
+                {...props}
+                required
+                style={{ height: '4em', borderRadius: "10px", ...focusStyles }}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
-                className="inputbox" bordered={false} size="large" name={props.name} placeholder={props.placeholder} prefix={<props.prefixIcon opacity={hasFocus ? 1 : 0.7} color={hasFocus ? "rgb(0, 186, 136)" : ""} />} />
+                className="inputbox" bordered={false} size="large" prefix={<PrefixIcon opacity={hasFocus ? 1 : 0.7} color={hasFocus ? "rgb(0, 186, 136)" : ""} />} />
         </div>
     )
 }

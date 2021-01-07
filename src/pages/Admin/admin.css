@@ -1,0 +1,23 @@
+.admin-container {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  column-gap: 10px;
+}
+
+.verticle-line {
+  height: 80vh;
+  width: 50%;
+  align-self: center;
+  border-right: 2px solid black;
+  opacity: 5%;
+}
+
+.input-styles {
+  border-radius: 10px;
+  height: 4em;
+  background: #eff0f6;
+}
+
+.top-margin {
+  margin-top: 0.5em;
+}

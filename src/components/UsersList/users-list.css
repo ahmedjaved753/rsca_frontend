@@ -1,0 +1,15 @@
+.usersList-container {
+  grid-column: 2 / span 2;
+  display: grid;
+  padding-top: 1em;
+  grid-template-rows: 10% 90%;
+  height: 100vh;
+}
+
+.input-container {
+  align-self: start;
+}
+
+.list-container {
+  overflow: auto;
+}
