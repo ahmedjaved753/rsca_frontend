@@ -32,8 +32,7 @@ function App() {
           <h1>search page</h1>
         </Route>
         <Route exact path="/">
-          <Menu />
-          <h1>home sweat home</h1>
+          <h1>homepage is yet to be made, please navigate to other pages for demo</h1>
         </Route>
       </Switch>
     </div>
