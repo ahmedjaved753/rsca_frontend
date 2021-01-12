@@ -21,3 +21,25 @@
 .top-margin {
   margin-top: 0.5em;
 }
+
+.modal-form {
+  display: grid;
+  row-gap: 0.5em;
+}
+
+.select-input-styles {
+  width: 50%;
+  padding-left: 0.3em;
+  border: none;
+  outline: none;
+  background: #eff0f6;
+}
+
+.select-input-styles:focus {
+  border: none;
+  outline: none;
+}
+
+.switch {
+  margin-left: 0.5em;
+}

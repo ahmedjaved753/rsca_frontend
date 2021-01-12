@@ -17,7 +17,7 @@ function UserDetails({ user, setUsers }) {
 
     function onDelete() {
         setDeleteLoading(true);
-        axios.delete(`${USER_DETAILS}${user.id}`, { headers: getAccessAuthHeader() })
+        axios.delete(`${USER_DETAILS}${user.id}/`, { headers: getAccessAuthHeader() })
             .then(res => {
                 setUsers(oldUsers => oldUsers.filter(usr => usr.id !== user.id))
                 setDeleteLoading(false);
@@ -30,7 +30,7 @@ function UserDetails({ user, setUsers }) {
 
     function onSave() {
         setSaveLoading(true)
-        axios.put(`${USER_DETAILS}${user.id}`, { password: formData.password, user_type: formData.userType, username: user.username, email: user.email }, { headers: getAccessAuthHeader() })
+        axios.put(`${USER_DETAILS}${user.id}/`, { password: formData.password, user_type: formData.userType, username: user.username, email: user.email }, { headers: getAccessAuthHeader() })
             .then(res => {
                 setSaveLoading(false)
             })
@@ -46,7 +46,7 @@ function UserDetails({ user, setUsers }) {
                 <Input size="large" value={user.email} readOnly className={inputClassName} prefix={<FaRegEnvelope />} />
                 <Input value={formData.password} onChange={handleOnchange} size="large" className={inputClassName} placeholder="Password" name="password" prefix={<FaKey />} />
                 <div>
-                    <select name="userType" onChange={handleOnchange} className={`${inputClassName} select-input-styles`}>
+                    <select name="userType" onChange={handleOnchange} className={`${inputClassName} select-input-styles`} value={user.user_type}>
                         <option value="VW">Viewer</option>
                         <option value="CR">Creator</option>
                         <option value="AD">Admin</option>

@@ -1,11 +1,12 @@
 import { useEffect, useContext } from 'react';
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Link, Redirect } from 'react-router-dom'
 import "./App.css";
-import "antd/dist/antd.css";
+import 'antd/dist/antd.css';
 import Menu from './components/Menu/Menu'
 import Signup from './pages/Signup/Signup';
 import Signin from './pages/Signin/Signin';
 import Admin from './pages/Admin/Admin';
+import Home from './pages/Home/Home';
 import { authContext } from "./contexts/AuthContext/AuthProvider";
 
 
@@ -28,11 +29,19 @@ function App() {
           <Admin />
         </Route>
         <Route exact path="/search">
-          <Menu />
-          <h1>search page</h1>
+          <h1>search page is currently in progress</h1>
         </Route>
         <Route exact path="/">
-          <h1>homepage is yet to be made, please navigate to other pages for demo</h1>
+          {
+            isAuthenticated ? (
+              <Home userType={userType} />
+            ) : (
+                <Redirect to="/login" />
+              )
+          }
+          {/* <h1>homepage is yet to be made, please use these following buttons to move to other pages</h1>
+          <Link to="/signup"><button>signup</button></Link>
+          <Link to="/login"><button>login</button></Link> */}
         </Route>
       </Switch>
     </div>

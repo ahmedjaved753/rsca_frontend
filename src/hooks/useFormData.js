@@ -5,5 +5,8 @@ export default function useFormData(initialState) {
     function handleOnchange(e) {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     }
-    return [formData, handleOnchange];
+    function changeToDefault() {
+        setFormData(initialState)
+    }
+    return [formData, handleOnchange, changeToDefault];
 }

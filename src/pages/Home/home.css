@@ -1,0 +1,12 @@
+.home-container {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  column-gap: 10px;
+}
+
+.file-uploader-container {
+  grid-column: 2/11;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
