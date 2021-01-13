@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 import axios from 'axios'
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { authContext } from '../../contexts/AuthContext/AuthProvider'
 import Input from '../Inputbox/Inputbox';
 import { Button, message } from 'antd';
@@ -71,7 +71,7 @@ function SignupForm() {
             <Button htmlType="submit" loading={loading} style={{ alignSelf: "center", backgroundColor: "#5F2EEA", paddingRight: "30px", paddingLeft: "30px", }} type="primary" shape="round" size="large">
                 Signup
             </Button>
-            <div className="below-button-message">Already have an account? <b className="bold-signIn">SignIn</b></div>
+            <div className="below-button-message">Already have an account? <b className="bold-signIn"><Link to="/login">SignIn</Link></b></div>
         </form>
 
     )

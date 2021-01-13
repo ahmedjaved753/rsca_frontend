@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import 'antd/dist/antd.css';
 import { Upload, Progress, Alert } from "antd";
+import { getAccessToken } from '../../helpers/localStorage'
+import { UPLOAD_FILE } from '../../routes'
 
 function FileUploader(props) {
     const [title, setTitle] = useState("");
@@ -24,9 +26,7 @@ function FileUploader(props) {
         const { onSuccess, onError, file, onProgress } = options;
         //this hardcoded stuff should be changed {
         const accessToken =
-            "Bearer " +
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjEwMzc0OTQ4LCJqdGkiOiJkZTE5ZDVjNDBmMmI0NDg4OWE0NmVmNjY5YzU4MDVhNiIsInVzZXJfaWQiOjF9.xUbRMLr3WXryjJ6gKq5LVut7nAeJjQ6fe_sjpRBMqs8";
-        const uploadUrl = "http://localhost:8000/api/posts/upload/";
+            "Bearer " + getAccessToken();
         const fmData = new FormData();
         // }
         const config = {
@@ -46,7 +46,7 @@ function FileUploader(props) {
         fmData.append("data_file", file);
         fmData.append("title", title);
         try {
-            const res = await axios.post(uploadUrl, fmData, config);
+            const res = await axios.post(UPLOAD_FILE, fmData, config);
 
             onSuccess("Ok");
             console.log("server res: ", res);

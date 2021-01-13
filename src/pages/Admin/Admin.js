@@ -104,7 +104,6 @@ function Admin() {
                             <option value="CR">Creator</option>
                             <option value="AD">Admin</option>
                         </select>
-                        <Switch defaultChecked className="switch" />
                     </div>
                     <Button htmlType="submit" loading={loading} style={{ justifySelf: "center", backgroundColor: "#5F2EEA", paddingRight: "30px", paddingLeft: "30px", }} type="primary" shape="round" size="large">
                         Create

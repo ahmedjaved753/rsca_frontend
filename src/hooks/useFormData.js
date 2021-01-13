@@ -8,5 +8,5 @@ export default function useFormData(initialState) {
     function changeToDefault() {
         setFormData(initialState)
     }
-    return [formData, handleOnchange, changeToDefault];
+    return [formData, handleOnchange, changeToDefault, setFormData];
 }

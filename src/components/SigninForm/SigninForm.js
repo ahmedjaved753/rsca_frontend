@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react'
+import { Link } from 'react-router-dom'
 import { authContext } from '../../contexts/AuthContext/AuthProvider'
 import axios from 'axios'
 import Input from '../Inputbox/Inputbox';
@@ -42,7 +43,7 @@ function SigninForm() {
             <Button loading={loading} htmlType="submit" style={{ alignSelf: "center", backgroundColor: "#5F2EEA", paddingRight: "30px", paddingLeft: "30px", }} type="primary" shape="round" size="large">
                 Login
             </Button>
-            <div className="below-button-message">Don't have an account? <b>SignUp</b></div>
+            <div className="below-button-message">Don't have an account? <b><Link to="/signup">SignUp</Link></b></div>
         </form>
     )
 }
