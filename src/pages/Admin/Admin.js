@@ -26,6 +26,9 @@ function Admin() {
     const [formData, handleOnchange, changeToDefault] = useFormData({ username: "", email: "", password: "", confirmPassword: "", userType: "VW" })
     const [loading, setLoading] = useState(false);
     const [newUserAdded, setNewUserAdded] = useState(0);
+    function onUserDelete() {
+        setUserIsClicked(false)
+    }
 
     useEffect(() => {
         axios.get(USERS, { headers: getAccessAuthHeader() })
@@ -76,7 +79,7 @@ function Admin() {
             <UsersList users={users} usersRef={usersRef} setUsers={setUsers} setUserIsClicked={setUserIsClicked} setCurrentUser={setCurrentUser} />
             <div className="verticle-line">
             </div>
-            {userIsClicked && <UserDetails setUsers={setUsers} user={currentUser} />}
+            {userIsClicked && <UserDetails setUsers={setUsers} user={currentUser} onUserDelete={onUserDelete} />}
             <AiFillPlusCircle onClick={() => setModalIsOpen(true)} style={{ position: 'fixed', bottom: "5vh", right: "5vw", width: "5em", height: "5em", color: "#5F2EEA", cursor: 'pointer' }} />
             <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} style={{
                 overlay: {},

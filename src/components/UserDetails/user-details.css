@@ -23,3 +23,7 @@
 .switch {
   margin-left: 0.5em;
 }
+
+input[type="text"] {
+  background-color: #eff0f6;
+}

@@ -9,7 +9,7 @@ import { USER_DETAILS } from '../../routes';
 import { getAccessAuthHeader } from '../../helpers/localStorage'
 import './user-details.css';
 
-function UserDetails({ user, setUsers }) {
+function UserDetails({ user, setUsers, onUserDelete }) {
     // eslint-disable-next-line
     const [formData, handleOnchange, _, setFormData] = useFormData({ password: "", userType: user.user_type, isActive: user.is_active });
     const [saveLoading, setSaveLoading] = useState(false);
@@ -22,6 +22,7 @@ function UserDetails({ user, setUsers }) {
             .then(res => {
                 setUsers(oldUsers => oldUsers.filter(usr => usr.id !== user.id))
                 setDeleteLoading(false);
+                onUserDelete();
             })
             .catch(error => {
                 console.log(error)
