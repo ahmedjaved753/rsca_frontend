@@ -36,19 +36,25 @@ function Calendar(props) {
         backgroundColor: "#FF4C60"
     }
 
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
     return (
         <div className="calendar-container">
             <div className="row1">
-                <Button type="primary" shape="round" icon={<FaCalendarAlt />} size="large">
+                <Button style={buttonStyles} type="primary" shape="round" icon={<FaCalendarAlt style={{ marginRight: "0.2em" }} />} size="large">
                     Start Date
                 </Button>
-                <CgArrowLongRight />
-                <Button type="primary" shape="round" icon={<FaCalendarAlt />} size="large">
+                <CgArrowLongRight style={{ width: "4em", height: "4em", }} />
+                <Button style={buttonStyles} type="primary" shape="round" icon={<FaCalendarAlt style={{ marginRight: "0.2em" }} />} size="large">
                     End Date
                 </Button>
             </div>
             <div className="row2">
-
+                <h3>{months[monthInCalendar - 1]}, {yearInCalendar}</h3>
+                <div className="icons-container">
+                    <span style={{ display: "inline-flex", justifyContent: "center", alignContent: "center", padding: "0.4em", borderRadius: "50%", backgroundColor: "gray", opacity: ".5", marginRight: "0.5em" }}><FaLessThan /></span>
+                    <span style={{ display: "inline-flex", justifyContent: "center", alignContent: "center", padding: "0.4em", borderRadius: "50%", backgroundColor: "gray", opacity: ".5", }}><FaGreaterThan /></span>
+                </div>
             </div>
             <div className="calendar-core">
                 {_.range(1, getDays(monthInCalendar, yearInCalendar) + 1).map((n) => (
