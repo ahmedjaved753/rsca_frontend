@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
+.calendar-core {
+  display: grid;
+  grid-template-columns: auto auto;
+  width: 35%;
+  gap: 8px 5px;
+  font-family: Ubuntu;
+  margin: 4px;
+}
+
+.set-yesterday-button {
+  grid-column: 3 / span 3;
+  align-self: center;
+}
+
+.set-today-button {
+  grid-column: 6 / span 2;
+  align-self: center;
+}
+.clear-button {
+  grid-column: 8 / span 2;
+  align-self: center;
+}

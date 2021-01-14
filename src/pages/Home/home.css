@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   column-gap: 10px;
+  height: 100vh;
 }
 
 .file-uploader-container {

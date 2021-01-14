@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import axios from 'axios'
-import { Button, Switch, message } from 'antd'
+import { Button, message } from 'antd'
 import Modal from 'react-modal'
 import Input from '../../components/Inputbox/Inputbox';
 import useFormData from '../../hooks/useFormData'

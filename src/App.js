@@ -7,6 +7,7 @@ import Signup from './pages/Signup/Signup';
 import Signin from './pages/Signin/Signin';
 import Admin from './pages/Admin/Admin';
 import Home from './pages/Home/Home';
+import Search from './pages/Search/Search';
 import { authContext } from "./contexts/AuthContext/AuthProvider";
 
 
@@ -29,7 +30,7 @@ function App() {
           <Admin />
         </Route>
         <Route exact path="/search">
-          <h1>search page is currently in progress</h1>
+          <Search />
         </Route>
         <Route exact path="/">
           {

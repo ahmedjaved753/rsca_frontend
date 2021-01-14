@@ -1,0 +1,12 @@
+.search-container {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  column-gap: 10px;
+  height: 100vh;
+}
+
+.main-content {
+  grid-column: 2/11;
+  display: grid;
+  grid-template-rows: 10vh auto 10vh;
+}
