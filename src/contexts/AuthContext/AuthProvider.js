@@ -28,20 +28,25 @@ function AuthProvider(props) {
 
     function refreshAccessToken() {
 
-        if (localStorage.getItem('tokens')) {
-            const refresh = getRefreshToken();
-            axios.post(REFRESH_TOKEN, { refresh })
-                .then(response => {
-                    console.log(response.data);
-                    refreshLocalStorage(response.data.access);
-                })
-                .catch(error => {
-                    console.log("error aaya in refreshing token");
-                    console.log(error);
-                    logout();
-                    history.push('/login')
-                })
-        }
+        return new Promise(function (resolve, reject) {
+            if (localStorage.getItem('tokens')) {
+                const refresh = getRefreshToken();
+                axios.post(REFRESH_TOKEN, { refresh })
+                    .then(response => {
+                        console.log(response.data);
+                        refreshLocalStorage(response.data.access);
+                        resolve(response.data.access)
+                    })
+                    .catch(error => {
+                        console.log("error aaya in refreshing token");
+                        console.log(error);
+                        logout();
+                        history.push('/login')
+                        reject(error)
+                    })
+            }
+        })
+
     }
 
     function getAndSetUserType() {
@@ -59,13 +64,16 @@ function AuthProvider(props) {
                 .catch(error => {
                     console.log(error)
                     if (error.response.status === 401) {
-                        refreshAccessToken();
-                        axios.get(USER_INFO, { headers: getAccessAuthHeader() })
-                            .then(response => {
-                                console.log(response);
-                                resolve(response)
+                        refreshAccessToken()
+                            .then(() => {
+                                axios.get(USER_INFO, { headers: getAccessAuthHeader() })
+                                    .then(response => {
+                                        console.log(response);
+                                        resolve(response)
+                                    })
+                                    .catch(error => reject(error))
                             })
-                            .catch(error => reject(error))
+
                     } else reject(error)
                 })
         })

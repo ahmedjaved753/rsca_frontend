@@ -10,3 +10,9 @@
   display: grid;
   grid-template-rows: 10vh auto 10vh;
 }
+
+.calender-and-filters-container {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
