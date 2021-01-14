@@ -5,7 +5,7 @@ import axios from 'axios'
 import { getAccessAuthHeader, refreshLocalStorage, removeTokens, setTokensToLocalStorage, getRefreshToken, getAccessToken } from '../../helpers/localStorage'
 export const authContext = createContext();
 
-function AuthProvider(props) {
+export function AuthProvider(props) {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [userType, setUserType] = useState(null);
     const history = useHistory();
@@ -23,6 +23,7 @@ function AuthProvider(props) {
             removeTokens();
             setIsAuthenticated(false);
             setUserType(null);
+            history.push('/login')
         }
     }
 
@@ -87,7 +88,7 @@ function AuthProvider(props) {
     }
 
     return (
-        <authContext.Provider value={{ isAuthenticated, login, logout, userType, init, getUsersData }}>
+        <authContext.Provider value={{ isAuthenticated, login, logout, userType, init, getUsersData,refreshAccessToken }}>
             {props.children}
         </authContext.Provider>
     )

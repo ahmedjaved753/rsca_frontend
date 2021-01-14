@@ -7,7 +7,7 @@ import {
   Marker,
   Popup,
   Polyline,
-  useMap,
+  useMap
 } from "react-leaflet";
 import "./postMapPage.css";
 //for list
@@ -16,11 +16,12 @@ import ClassFiltersList from "../../components/classFiltersList/ClassFiltersList
 import { PostsContext } from "../../contexts/PostsContext/postContext";
 import { getRandomColorOptions } from "../../contexts/PostsContext/utils";
 import PostList from "../../components/postList/PostList";
-import { getAccessAuthHeader } from '../../helpers/localStorage'
-import {GET_POSTS_BY_DATE_RANGE,BASE} from "../../routes";
-
-import icon from 'leaflet/dist/images/marker-icon.png';
-import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import { getAccessAuthHeader } from "../../helpers/localStorage";
+import { GET_POSTS_BY_DATE_RANGE, BASE } from "../../routes";
+import icon from "leaflet/dist/images/marker-icon.png";
+import iconShadow from "leaflet/dist/images/marker-shadow.png";
+import { authContext } from "../../contexts/AuthContext/AuthProvider";
+import { message} from 'antd';
 
 let DefaultIcon = L.icon({
   iconUrl: icon,
@@ -33,16 +34,17 @@ function PostMapPage() {
   const { posts, center, markerToShow, updatePostsFromResponse } = useContext(
     PostsContext
   );
+  const { refreshAccessToken,logout } = useContext(authContext);
 
   useEffect(() => {
     const fetchData = () => {
       const config = {
-        headers:getAccessAuthHeader(),
+        headers: getAccessAuthHeader(),
 
         params: {
           start_date: "12-12-2020",
-          end_date: "15-01-2021",
-        },
+          end_date: "15-01-2021"
+        }
       };
       const url = GET_POSTS_BY_DATE_RANGE;
       axios
@@ -52,7 +54,35 @@ function PostMapPage() {
           updatePostsFromResponse(response);
         })
         .catch((err) => {
-          // Do something for an error here
+          //if it is error due to token invalidation
+          if (err.response.status == 401) {
+            //refresh the token
+            refreshAccessToken().then((response) => {
+              //if refresh token is successful
+              const config = {
+                headers: getAccessAuthHeader(),
+
+                params: {
+                  start_date: "12-12-2020",
+                  end_date: "15-01-2021"
+                }
+              };
+              //send request again
+              axios
+                .get(url, config)
+                .then(response => {
+                  //if data comes successfully then update posts
+                  updatePostsFromResponse(response);
+                }).catch(err=>{
+                  //if error in second time fetch
+                  message.error(err.response.statusText)
+              })
+            }).catch(err => {
+              //if there is error with error in fetching token
+              logout()
+            });
+          }
+          // If the error is not because of token
           console.log("Error Reading data " + err);
         });
     };
@@ -73,7 +103,7 @@ function PostMapPage() {
       >
         <Popup>
           <img
-            src={BASE+props.marker.imagePath.substring(1)}
+            src={BASE + props.marker.imagePath.substring(1)}
             width={200}
             height={200}
           />
