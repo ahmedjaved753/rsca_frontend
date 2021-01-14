@@ -12,6 +12,7 @@ import PostMapPage from "./pages/PostsPage/PostMapPage";
 import { PostsContextProvider } from "./contexts/PostsContext/postContext";
 
 import { authContext } from "./contexts/AuthContext/AuthProvider";
+import {AuthProvider} from "./contexts/AuthContext/AuthProvider"
 
 
 function App() {
@@ -30,9 +31,11 @@ function App() {
           <Signin />
         </Route>
         <Route exact path="/posts">
+          <AuthProvider>
           <PostsContextProvider>
             <PostMapPage />
           </PostsContextProvider>
+          </AuthProvider>
         </Route>
         <Route exact path="/admin">
           <Admin />
