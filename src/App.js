@@ -31,11 +31,9 @@ function App() {
           <Signin />
         </Route>
         <Route exact path="/posts">
-          <AuthProvider>
           <PostsContextProvider>
             <PostMapPage />
           </PostsContextProvider>
-          </AuthProvider>
         </Route>
         <Route exact path="/admin">
           <Admin />

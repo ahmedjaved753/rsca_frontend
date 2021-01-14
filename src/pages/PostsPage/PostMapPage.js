@@ -21,7 +21,8 @@ import { GET_POSTS_BY_DATE_RANGE, BASE } from "../../routes";
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import { authContext } from "../../contexts/AuthContext/AuthProvider";
-import { message} from 'antd';
+import { message } from "antd";
+import Menu from "../../components/Menu/Menu";
 
 let DefaultIcon = L.icon({
   iconUrl: icon,
@@ -31,10 +32,10 @@ let DefaultIcon = L.icon({
 L.Marker.prototype.options.icon = DefaultIcon;
 
 function PostMapPage() {
-  const { posts, center, markerToShow, updatePostsFromResponse } = useContext(
+  const { posts, center, markerToShow, updatePostsFromResponse,dates } = useContext(
     PostsContext
   );
-  const { refreshAccessToken,logout } = useContext(authContext);
+  const { refreshAccessToken, logout } = useContext(authContext);
 
   useEffect(() => {
     const fetchData = () => {
@@ -42,8 +43,8 @@ function PostMapPage() {
         headers: getAccessAuthHeader(),
 
         params: {
-          start_date: "12-12-2020",
-          end_date: "15-01-2021"
+          start_date: dates[0],
+          end_date: dates[1],
         }
       };
       const url = GET_POSTS_BY_DATE_RANGE;
@@ -63,8 +64,8 @@ function PostMapPage() {
                 headers: getAccessAuthHeader(),
 
                 params: {
-                  start_date: "12-12-2020",
-                  end_date: "15-01-2021"
+                  start_date: dates[0],
+                  end_date: dates[1],
                 }
               };
               //send request again
@@ -73,13 +74,13 @@ function PostMapPage() {
                 .then(response => {
                   //if data comes successfully then update posts
                   updatePostsFromResponse(response);
-                }).catch(err=>{
-                  //if error in second time fetch
-                  message.error(err.response.statusText)
-              })
+                }).catch(err => {
+                //if error in second time fetch
+                message.error(err.response.statusText);
+              });
             }).catch(err => {
               //if there is error with error in fetching token
-              logout()
+              logout();
             });
           }
           // If the error is not because of token
@@ -87,7 +88,7 @@ function PostMapPage() {
         });
     };
     fetchData();
-  }, []);
+  }, [dates]);
 
   function ChangeView({ center, zoom }) {
     const map = useMap();
@@ -113,32 +114,36 @@ function PostMapPage() {
   }
 
   return (
-    <div className="container">
-      <MapContainer
-        center={center}
-        zoom={25}
-        scrollWheelZoom={false}
-        style={{ height: "100vh" }}
-      >
-        <TileLayer
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <ChangeView center={center} zoom={25} scrollWheelZoom={false} />
-        {posts.map((post) => (
-          <Polyline
-            pathOptions={getRandomColorOptions()}
-            positions={post.completePath}
-            key={post.id}
+    <div className="posts-container">
+
+      <Menu />
+      <div className="map-container-mine">
+        <MapContainer
+          center={center}
+          zoom={25}
+          scrollWheelZoom={false}
+          style={{ height: "100vh" }}
+        >
+          <TileLayer
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-        ))}
-        {markerToShow !== null ? (
-          <CustomMarker marker={markerToShow} center={center} zoom={25} />
-        ) : null}
-      </MapContainer>
+          <ChangeView center={center} zoom={25} scrollWheelZoom={false} />
+          {posts.map((post) => (
+            <Polyline
+              pathOptions={getRandomColorOptions()}
+              positions={post.completePath}
+              key={post.id}
+            />
+          ))}
+          {markerToShow !== null ? (
+            <CustomMarker marker={markerToShow} center={center} zoom={25} />
+          ) : null}
+        </MapContainer>
+      </div>
       <div className="side-lists">
-        <PostList />
         <ClassFiltersList />
+        <PostList />
       </div>
     </div>
   );

@@ -15,6 +15,7 @@ export function PostsContextProvider(props) {
   const [markerToShow, setMarkerToShow] = useState(null);
   const [filters, setFilters] = useState([POTHOLES, CRACKS, BLEEDS]);
   const [filteredMarkers, setFilteredMarkers] = useState([]);
+  const [dates,setDates]=useState([])
 
   function updatePostsFromResponse(response) {
     setPosts(cleanPostsData(response));
@@ -52,6 +53,8 @@ export function PostsContextProvider(props) {
         setFilteredMarkers,
         filters,
         setFilters,
+        dates,
+        setDates,
       }}
     >
       {props.children}
