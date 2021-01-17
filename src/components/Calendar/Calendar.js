@@ -11,7 +11,7 @@ import { getAccessAuthHeader } from '../../helpers/localStorage'
 import { GET_NUMBER_OF_POSTS_OF_A_MONTH } from '../../routes';
 import "./calendar.css";
 
-function Calendar(props) {
+function Calendar({ setDates }) {
 
     const [monthInCalendar, setMonthInCalendar] = useState((new Date().getMonth() + 1))
     const [yearInCalendar, setYearInCalendar] = useState((new Date().getFullYear()))
@@ -102,9 +102,17 @@ function Calendar(props) {
                     setLoading(true);
                     if (startDateIsClicked) {
                         startDateRef.current = `${dayInCalender}-${monthInCalendar}-${yearInCalendar}`;
+                        setDates(od => {
+                            const nd = [startDateRef.current, od[1]];
+                            return nd;
+                        })
                         setStartDateIsClicked(false);
                     } else if (endDateIsClicked) {
                         endDateRef.current = `${dayInCalender}-${monthInCalendar}-${yearInCalendar}`;
+                        setDates(od => {
+                            const nd = [od[0], endDateRef.current];
+                            return nd;
+                        })
                         setEndDateIsClicked(false);
                     }
                     setTimeout(() => setLoading(false), 500)
