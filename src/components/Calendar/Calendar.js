@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import _ from "lodash"
 import axios from "axios";
 import { v4 as uuid } from 'uuid';
@@ -16,7 +16,28 @@ function Calendar(props) {
     const [monthInCalendar, setMonthInCalendar] = useState((new Date().getMonth() + 1))
     const [yearInCalendar, setYearInCalendar] = useState((new Date().getFullYear()))
     const [noOfPosts, setNoOfPosts] = useState(new Array(getDays(monthInCalendar, yearInCalendar)).fill(0))
+    const [yearIncreased, setYearIncreased] = useState(0)
+    const [yearDecreased, setYearDecreased] = useState(0)
+    const [dayInCalender, setDayInCalender] = useState(new Date().getDate())
+    const [startDateIsClicked, setStartDateIsClicked] = useState(false)
+    const [endDateIsClicked, setEndDateIsClicked] = useState(false)
+    const [loading, setLoading] = useState(false);
+    const startDateRef = useRef(null);
+    const endDateRef = useRef(null);
 
+
+    console.log(monthInCalendar, yearInCalendar, "month year huhhu");
+    useEffect(() => {
+        if (yearIncreased !== 0) {
+            setYearInCalendar(oy => oy + 1)
+        }
+    }, [yearIncreased])
+
+    useEffect(() => {
+        if (yearDecreased !== 0) {
+            setYearInCalendar(oy => oy - 1)
+        }
+    }, [yearDecreased])
     useEffect(() => {
         axios.get(GET_NUMBER_OF_POSTS_OF_A_MONTH, { headers: getAccessAuthHeader(), params: { month: monthInCalendar, year: yearInCalendar } })
             .then(response => {
@@ -38,27 +59,65 @@ function Calendar(props) {
 
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
+    function increaseMonth() {
+        setMonthInCalendar(oldMonth => {
+            const newMonth = (oldMonth % 12) + 1;
+            if (newMonth === 1) setYearIncreased(yearIncreased + 1);
+            return newMonth;
+        })
+    }
+
+    function decrementMonth() {
+        setMonthInCalendar(oldMonth => {
+            let newMonth = oldMonth - 1;
+            if (newMonth === 0) {
+                setYearDecreased(yearDecreased - 1)
+                newMonth = 12;
+            };
+            return newMonth;
+        })
+    }
+
     return (
         <div className="calendar-container">
             <div className="row1">
-                <Button style={buttonStyles} type="primary" shape="round" icon={<FaCalendarAlt style={{ marginRight: "0.2em" }} />} size="large">
-                    Start Date
+                <Button onClick={() => {
+                    setStartDateIsClicked(true)
+                    setEndDateIsClicked(false)
+                }} style={buttonStyles} type="primary" shape="round" icon={<FaCalendarAlt style={{ marginRight: "0.2em" }} />} size="large">
+                    {startDateIsClicked ? `${dayInCalender}-${monthInCalendar}-${yearInCalendar}` : startDateRef.current ? startDateRef.current : "Start Date"}
                 </Button>
                 <CgArrowLongRight style={{ width: "4em", height: "4em", }} />
-                <Button style={buttonStyles} type="primary" shape="round" icon={<FaCalendarAlt style={{ marginRight: "0.2em" }} />} size="large">
-                    End Date
+                <Button onClick={() => {
+                    setEndDateIsClicked(true)
+                    setStartDateIsClicked(false)
+                }} style={buttonStyles} type="primary" shape="round" icon={<FaCalendarAlt style={{ marginRight: "0.2em" }} />} size="large">
+                    {endDateIsClicked ? `${dayInCalender}-${monthInCalendar}-${yearInCalendar}` : endDateRef.current ? endDateRef.current : "End Date"}
                 </Button>
             </div>
             <div className="row2">
                 <h3>{months[monthInCalendar - 1]}, {yearInCalendar}</h3>
+
+                {(startDateIsClicked || endDateIsClicked) ? <Button className="select-button" loading={loading} onClick={() => {
+                    setLoading(true);
+                    if (startDateIsClicked) {
+                        startDateRef.current = `${dayInCalender}-${monthInCalendar}-${yearInCalendar}`;
+                        setStartDateIsClicked(false);
+                    } else if (endDateIsClicked) {
+                        endDateRef.current = `${dayInCalender}-${monthInCalendar}-${yearInCalendar}`;
+                        setEndDateIsClicked(false);
+                    }
+                    setTimeout(() => setLoading(false), 500)
+                }} style={{ borderRadius: "10px" }} type="primary">Select</Button> : null}
+
                 <div className="icons-container">
-                    <span style={{ display: "inline-flex", justifyContent: "center", alignContent: "center", padding: "0.4em", borderRadius: "50%", backgroundColor: "gray", opacity: ".5", marginRight: "0.5em" }}><FaLessThan /></span>
-                    <span style={{ display: "inline-flex", justifyContent: "center", alignContent: "center", padding: "0.4em", borderRadius: "50%", backgroundColor: "gray", opacity: ".5", }}><FaGreaterThan /></span>
+                    <span style={{ cursor: "pointer", display: "inline-flex", justifyContent: "center", alignContent: "center", padding: "0.4em", borderRadius: "50%", backgroundColor: "gray", opacity: ".5", marginRight: "0.5em" }}><FaLessThan onClick={decrementMonth} /></span>
+                    <span style={{ cursor: "pointer", display: "inline-flex", justifyContent: "center", alignContent: "center", padding: "0.4em", borderRadius: "50%", backgroundColor: "gray", opacity: ".5", }}><FaGreaterThan onClick={increaseMonth} /></span>
                 </div>
             </div>
             <div className="calendar-core">
                 {_.range(1, getDays(monthInCalendar, yearInCalendar) + 1).map((n) => (
-                    <DateComp key={uuid()} dateNum={n} postCount={noOfPosts[n - 1]} />
+                    <DateComp month={monthInCalendar} year={yearInCalendar} day={dayInCalender} setDay={setDayInCalender} key={uuid()} dateNum={n} postCount={noOfPosts[n - 1]} />
                 ))}
                 <Button
                     className="set-yesterday-button"
@@ -73,7 +132,7 @@ function Calendar(props) {
                     ghost
                 >
                     Set Yesterday
-        </Button>
+            </Button>
                 <Button
                     className="set-today-button"
                     style={{
@@ -87,7 +146,7 @@ function Calendar(props) {
                     ghost
                 >
                     Set Today
-        </Button>
+            </Button>
                 <Button
                     className="clear-button"
                     style={{
@@ -101,10 +160,11 @@ function Calendar(props) {
                     ghost
                 >
                     Clear
-        </Button>
+            </Button>
             </div>
 
         </div>
+
     );
 }
 
