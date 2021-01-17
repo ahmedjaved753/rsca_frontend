@@ -2,7 +2,6 @@ import { useEffect, useContext } from 'react';
 import { Route, Switch, Link, Redirect } from 'react-router-dom'
 import "./App.css";
 import 'antd/dist/antd.css';
-import Menu from './components/Menu/Menu'
 import Signup from './pages/Signup/Signup';
 import Signin from './pages/Signin/Signin';
 import Admin from './pages/Admin/Admin';
@@ -40,9 +39,6 @@ function App() {
                 <Redirect to="/login" />
               )
           }
-          {/* <h1>homepage is yet to be made, please use these following buttons to move to other pages</h1>
-          <Link to="/signup"><button>signup</button></Link>
-          <Link to="/login"><button>login</button></Link> */}
         </Route>
       </Switch>
     </div>

@@ -8,11 +8,29 @@
 .main-content {
   grid-column: 2/11;
   display: grid;
-  grid-template-rows: 10vh auto 10vh;
+  grid-template-rows: 10vh auto 20vh;
 }
 
 .calender-and-filters-container {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.search-button {
+  background-color: #6c63ff;
+  color: white;
+  border: none;
+  outline: none;
+  justify-self: center;
+  align-self: center;
+  width: 20%;
+  height: 40%;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.search-button {
+  border: none;
+  outline: none;
 }

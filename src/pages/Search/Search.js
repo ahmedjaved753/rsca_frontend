@@ -1,9 +1,13 @@
-import React from 'react'
+import { useState } from 'react'
 import Calendar from '../../components/Calendar/Calendar'
 import Menu from '../../components/Menu/Menu'
 import './search.css'
 
 function Search() {
+
+    function handleClick() {
+
+    }
 
     return (
         <div className="search-container">
@@ -15,9 +19,7 @@ function Search() {
                 <div className="calender-and-filters-container">
                     <Calendar />
                 </div>
-                <div className="search-button-container">
-                    <button className="search-button">Search</button>
-                </div>
+                <button onClick={handleClick} className="search-button">Search</button>
             </main>
         </div>
     )
