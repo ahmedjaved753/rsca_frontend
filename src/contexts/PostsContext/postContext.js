@@ -1,5 +1,5 @@
 import React, { useState, createContext } from "react";
-import { cleanPostsData, cleanMarkersData } from "./utils";
+import { cleanPostsData, cleanMarkersData } from "../../helpers/postsHandlingUtils";
 
 export const POTHOLES = "pothole";
 export const BLEEDS = "bleed";

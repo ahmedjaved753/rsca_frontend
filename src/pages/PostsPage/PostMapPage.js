@@ -22,13 +22,13 @@ import ClassFiltersList from "../../components/classFiltersList/ClassFiltersList
 //context for the whole page
 import { PostsContext } from "../../contexts/PostsContext/postContext";
 //to get random options for post path vector
-import { getRandomColorOptions } from "../../contexts/PostsContext/utils";
+import { getRandomColorOptions } from "../../helpers/postsHandlingUtils";
 //side list component for showing post lists
 import PostList from "../../components/postList/PostList";
 //sending request needs access token stored
 import { getAccessAuthHeader } from "../../helpers/localStorage";
 //urls on which requests will be sent
-import { GET_POSTS_BY_DATE_RANGE, BASE } from "../../routes";
+import { GET_POSTS_BY_DATE_RANGE, BASE } from "../../helpers/routes";
 //marker icons for map
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
