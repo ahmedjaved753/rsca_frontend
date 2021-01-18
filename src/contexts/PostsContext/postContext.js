@@ -17,6 +17,7 @@ export function PostsContextProvider(props) {
   const [filters, setFilters] = useState([POTHOLES, CRACKS, BLEEDS]);
   const [filteredMarkers, setFilteredMarkers] = useState([]);
   const [dates, setDates] = useState([]);
+  const [showAll, setShowAll] = useState(true);
 
   function updatePostsFromResponse(response) {
     const cleanedPosts = cleanPostsData(response);
@@ -25,15 +26,19 @@ export function PostsContextProvider(props) {
   }
 
   function removePostFromFilteredPosts(postID) {
-    const newFilteredPosts=filteredPosts.filter(e=>e.id!==postID)
+    console.log("removing post with", postID);
+    const newFilteredPosts = filteredPosts.filter(e => e.id !== postID);
     setFilteredPosts(newFilteredPosts);
-    console.log(posts)
+    console.log(newFilteredPosts);
   }
 
   function importPostFromFilteredPosts(postID) {
+    console.log("importing post with", postID);
     const indexOfPostToAdd = posts.findIndex(e => e.id === postID);
-    const newPosts=[...filteredPosts,posts[indexOfPostToAdd]]
+    let newPosts = [...filteredPosts, posts[indexOfPostToAdd]];
+    newPosts = [...new Set(newPosts)];
     setFilteredPosts(newPosts);
+    console.log(newPosts);
   }
 
   function appendPosts(newPosts) {
@@ -41,12 +46,22 @@ export function PostsContextProvider(props) {
   }
 
   function appendMarkers(newMarkers) {
-    setMarkers((previousMarkers) => [...previousMarkers, ...newMarkers]);
+    let allMarkers = [...markers, ...newMarkers];
+    allMarkers = [...new Set(allMarkers)];
+    setMarkers(allMarkers);
   }
 
   function updateMarkersFromResponse(response) {
     const cleanedMarkers = cleanMarkersData(response);
-    setMarkers(cleanedMarkers);
+    appendMarkers(cleanedMarkers);
+  }
+
+  function resetFilteredPosts(){
+    setFilteredPosts([])
+  }
+
+  function populateFilteredPostsWithAll(){
+    setFilteredPosts(posts)
   }
 
   return (
@@ -74,6 +89,10 @@ export function PostsContextProvider(props) {
         setFilteredPosts,
         removePostFromFilteredPosts,
         importPostFromFilteredPosts,
+        showAll,
+        setShowAll,
+        resetFilteredPosts,
+        populateFilteredPostsWithAll
       }}
     >
       {props.children}

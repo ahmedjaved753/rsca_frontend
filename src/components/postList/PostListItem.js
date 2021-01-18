@@ -24,13 +24,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PostListItem(props) {
-  const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const [checked, setChecked] = React.useState(true);
   const {
     removePostFromFilteredPosts,
-    importPostFromFilteredPosts
+    importPostFromFilteredPosts,
+    showAll,
   } = useContext(PostsContext);
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+  const [checked, setChecked] = React.useState(showAll);
+
+
 
   const handleClick = () => {
     console.log("handle click called");
@@ -43,7 +46,7 @@ export default function PostListItem(props) {
 
   };
 
-  const handleCheckChange = (e) => {
+  const handleCheckChange = () => {
     setOpen(!checked)
     if(checked){
       removePostFromFilteredPosts(props.postID)
@@ -54,6 +57,10 @@ export default function PostListItem(props) {
   };
 
 
+  useEffect(()=>{
+    setChecked(showAll)
+    setOpen(false)
+  },[showAll])
 
   return (
     <div>

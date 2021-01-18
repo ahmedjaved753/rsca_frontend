@@ -9,6 +9,7 @@ import { getAccessAuthHeader } from "../../helpers/localStorage";
 import { GET_POST_MARKERS_BY_POST_ID } from "../../routes";
 import { message } from "antd";
 import { authContext } from "../../contexts/AuthContext/AuthProvider";
+import Checkbox from "@material-ui/core/Checkbox";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,8 +33,10 @@ export default function PostList(props) {
     posts,
     updateMarkersFromResponse,
     filters,
-    removePostFromFilteredPosts,
-    importPostFromFilteredPosts
+    showAll,
+    setShowAll,
+    resetFilteredPosts,
+    populateFilteredPostsWithAll
   } = useContext(PostsContext);
   const { refreshAccessToken, logout } = useContext(authContext);
 
@@ -56,6 +59,14 @@ export default function PostList(props) {
     });
     setFilteredMarkers(fil);
   }, [markers, filters, setFilteredMarkers]);
+
+  useEffect(() => {
+    if (showAll) {
+      populateFilteredPostsWithAll();
+    } else {
+      resetFilteredPosts();
+    }
+  }, [showAll]);
 
   function handlePostsClick(postIDs) {
     if (postIDs.length === 0) return;
@@ -116,7 +127,17 @@ export default function PostList(props) {
       aria-labelledby="nested-list-subheader"
       subheader={
         <ListSubheader component="div" id="nested-list-subheader">
-          Posts
+          <div>
+            <p>Posts</p>
+            <div style={{
+              display: "flex",
+              textAlign: "center"
+            }}>
+              <Checkbox checked={showAll} value={"Show All"} onChange={() => setShowAll(!showAll)} />
+              <p>Show all</p>
+            </div>
+            <hr />
+          </div>
         </ListSubheader>
       }
       className={classes.root}
