@@ -10,8 +10,8 @@ function NavigationIcon({ Filled, OutLined, forRoute, ...props }) {
         width: "100%",
         color: "#333951"
     };
+    if (pathname === '/posts') pathname = '/search'; //did it to show background on search icon and show filled search icon
     var className = `icon-wrapper ${pathname === forRoute ? 'background' : ""}`
-    if (pathname === "/posts" && forRoute === "/search") className += "background";
     return (
         <Link to={forRoute} className={`icon-container ${props.cssClasses}`}>
             <div className={className}>

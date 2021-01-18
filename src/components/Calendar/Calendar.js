@@ -170,6 +170,7 @@ function Calendar({ setDates }) {
                         setEndDateIsClicked(false)
                         setStartDate(null)
                         setEndDate(null)
+                        setDates([])
                     }}
                     className="clear-button"
                     style={{
