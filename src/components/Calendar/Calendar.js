@@ -101,14 +101,14 @@ function Calendar({ setDates }) {
                 <Button onClick={() => {
                     setStartDateIsClicked(true)
                     setEndDateIsClicked(false)
-                }} style={{ ...buttonStyles, boxShadow: startDateIsClicked ? "inset 0px 3px 4px 0px rgba(0,0,0,0.2)" : "none" }} type="primary" shape="round" icon={<FaCalendarAlt style={{ marginRight: "0.2em", borderColor: "transparent" }} />} size="large">
+                }} style={{ ...buttonStyles, boxShadow: startDateIsClicked ? "inset 1px 3px 4px 0px rgba(0,0,0,0.3)" : "none" }} type="primary" shape="round" icon={<FaCalendarAlt style={{ marginRight: "0.2em", borderColor: "transparent" }} />} size="large">
                     {startDateIsClicked ? `${dayInCalender}-${monthInCalendar}-${yearInCalendar}` : startDate ? startDate : "Start Date"}
                 </Button>
                 <CgArrowLongRight style={{ width: "4em", height: "4em", }} />
                 <Button onClick={() => {
                     setEndDateIsClicked(true)
                     setStartDateIsClicked(false)
-                }} style={{ ...buttonStyles, boxShadow: endDateIsClicked ? "inset 0px 3px 4px 0px rgba(0,0,0,0.2)" : "none" }} type="primary" shape="round" icon={<FaCalendarAlt style={{ marginRight: "0.2em", borderColor: "transparent" }} />} size="large">
+                }} style={{ ...buttonStyles, boxShadow: endDateIsClicked ? "inset 1px 3px 4px 0px rgba(0,0,0,0.3)" : "none" }} type="primary" shape="round" icon={<FaCalendarAlt style={{ marginRight: "0.2em", borderColor: "transparent" }} />} size="large">
                     {endDateIsClicked ? `${dayInCalender}-${monthInCalendar}-${yearInCalendar}` : endDate ? endDate : "End Date"}
                 </Button>
             </div>
