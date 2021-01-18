@@ -1,5 +1,5 @@
 import React, { useState, createContext } from "react";
-import { cleanPostsData, cleanMarkersData } from "./utils";
+import { cleanPostsData, cleanMarkersData } from "../../helpers/postsHandlingUtils";
 
 export const POTHOLES = "pothole";
 export const BLEEDS = "bleed";
@@ -8,16 +8,16 @@ export const CRACKS = "crack";
 export const PostsContext = createContext();
 
 export function PostsContextProvider(props) {
-  const [posts, setPosts] = useState([]);
-  const [filteredPosts, setFilteredPosts] = useState([]);
-  const [markers, setMarkers] = useState([]);
-  const [zoom, setZoom] = useState(25);
-  const [center, setCenter] = useState([31.57, 31.57]);
-  const [markerToShow, setMarkerToShow] = useState(null);
+  const [posts, setPosts] = useState([]); //list of all posts fetched
+  const [filteredPosts, setFilteredPosts] = useState([]); //list of posts that passed filtering and will be rendered
+  const [markers, setMarkers] = useState([]);// list of all markers fetched for whatever posts
+  const [zoom, setZoom] = useState(25); // zoom state for map
+  const [center, setCenter] = useState([31.57, 31.57]);// center state for map
+  const [markerToShow, setMarkerToShow] = useState(null);//the actual one marker that will be shown on map
   const [filters, setFilters] = useState([POTHOLES, CRACKS, BLEEDS]);
-  const [filteredMarkers, setFilteredMarkers] = useState([]);
-  const [dates, setDates] = useState([]);
-  const [showAll, setShowAll] = useState(true);
+  const [filteredMarkers, setFilteredMarkers] = useState([]);// list of markers that have passed filtered test at any moment
+  const [dates, setDates] = useState([]);//an array of strings [start-date,end-date] whose posts will be fetched
+  const [showAll, setShowAll] = useState(true);// state for showAll checkbox on post list
 
   /**
    * gets returned post data from server cleans that and updates post state with it
