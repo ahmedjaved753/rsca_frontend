@@ -100,14 +100,14 @@ function Calendar({ setDates }) {
                 <Button onClick={() => {
                     setStartDateIsClicked(true)
                     setEndDateIsClicked(false)
-                }} style={buttonStyles} type="primary" shape="round" icon={<FaCalendarAlt style={{ marginRight: "0.2em" }} />} size="large">
+                }} style={buttonStyles} type="primary" shape="round" icon={<FaCalendarAlt style={{ marginRight: "0.2em", borderColor: "transparent" }} />} size="large">
                     {startDateIsClicked ? `${dayInCalender}-${monthInCalendar}-${yearInCalendar}` : startDateRef.current ? startDateRef.current : "Start Date"}
                 </Button>
                 <CgArrowLongRight style={{ width: "4em", height: "4em", }} />
-                <Button onClick={() => {
+                <Button border={false} onClick={() => {
                     setEndDateIsClicked(true)
                     setStartDateIsClicked(false)
-                }} style={buttonStyles} type="primary" shape="round" icon={<FaCalendarAlt style={{ marginRight: "0.2em" }} />} size="large">
+                }} style={buttonStyles} type="primary" shape="round" icon={<FaCalendarAlt style={{ marginRight: "0.2em", borderColor: "transparent" }} />} size="large">
                     {endDateIsClicked ? `${dayInCalender}-${monthInCalendar}-${yearInCalendar}` : endDateRef.current ? endDateRef.current : "End Date"}
                 </Button>
             </div>
