@@ -5,7 +5,7 @@ import { FaKey } from "react-icons/fa";
 import { FaRegUser } from "react-icons/fa";
 import { FaRegEnvelope } from "react-icons/fa";
 import useFormData from '../../hooks/useFormData';
-import { USER_DETAILS } from '../../routes';
+import { USER_DETAILS } from '../../helpers/routes';
 import { getAccessAuthHeader } from '../../helpers/localStorage'
 import './user-details.css';
 

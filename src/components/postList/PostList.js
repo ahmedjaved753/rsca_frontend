@@ -6,7 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { PostsContext } from "../../contexts/PostsContext/postContext";
 import axios from "axios";
 import { getAccessAuthHeader } from "../../helpers/localStorage";
-import { GET_POST_MARKERS_BY_POST_ID } from "../../routes";
+import { GET_POST_MARKERS_BY_POST_ID } from "../../helpers/routes";
 import { message } from "antd";
 import { authContext } from "../../contexts/AuthContext/AuthProvider";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -108,9 +108,9 @@ export default function PostList(props) {
                 //if data comes successfully then update posts
                 updateMarkersFromResponse(response);
               }).catch(err => {
-              //if error in second time fetch
-              message.error(err.response.statusText);
-            });
+                //if error in second time fetch
+                message.error(err.response.statusText);
+              });
           }).catch(err => {
             //if there is error with error in fetching token
             logout();

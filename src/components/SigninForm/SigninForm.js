@@ -6,7 +6,7 @@ import Input from '../Inputbox/Inputbox';
 import { Button, message } from 'antd';
 import { FaKey } from "react-icons/fa";
 import { FaRegUser } from "react-icons/fa";
-import { GET_TOKEN } from '../../routes';
+import { GET_TOKEN } from '../../helpers/routes';
 import useFormData from '../../hooks/useFormData';
 
 import './signin-form.css'

@@ -11,7 +11,7 @@ import { getAccessAuthHeader } from '../../helpers/localStorage'
 import { matchPasswords, passwordIsCorrect } from '../../helpers/formValidation'
 import { AiFillPlusCircle } from "react-icons/ai";
 import { FaKey, FaLock, FaRegUser, FaRegEnvelope } from "react-icons/fa";
-import { USERS, REGISTER_BY_ADMIN } from '../../routes';
+import { USERS, REGISTER_BY_ADMIN } from '../../helpers/routes';
 import './admin.css'
 
 function Admin({ userType }) {

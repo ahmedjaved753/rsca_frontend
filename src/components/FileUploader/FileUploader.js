@@ -3,7 +3,7 @@ import axios from "axios";
 import 'antd/dist/antd.css';
 import { Upload, Progress, Alert } from "antd";
 import { getAccessToken } from '../../helpers/localStorage'
-import { UPLOAD_FILE } from '../../routes'
+import { UPLOAD_FILE } from '../../helpers/routes'
 
 function FileUploader(props) {
     const [title, setTitle] = useState("");

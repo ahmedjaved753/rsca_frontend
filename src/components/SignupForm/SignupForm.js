@@ -9,7 +9,7 @@ import { FaRegUser } from "react-icons/fa";
 import { FaRegEnvelope } from "react-icons/fa";
 import { splitName, matchPasswords, passwordIsCorrect } from '../../helpers/formValidation'
 import './signup-form.css'
-import { REGISTER } from '../../routes';
+import { REGISTER } from '../../helpers/routes';
 import useFormData from '../../hooks/useFormData';
 
 
