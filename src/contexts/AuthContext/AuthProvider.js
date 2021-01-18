@@ -1,6 +1,6 @@
 import React, { useState, createContext } from 'react'
 import { useHistory } from "react-router-dom";
-import { USER_INFO, REFRESH_TOKEN } from '../../routes';
+import { USER_INFO, REFRESH_TOKEN } from '../../helpers/routes';
 import axios from 'axios'
 import { getAccessAuthHeader, refreshLocalStorage, removeTokens, setTokensToLocalStorage, getRefreshToken, getAccessToken } from '../../helpers/localStorage'
 export const authContext = createContext();
@@ -88,7 +88,7 @@ export function AuthProvider(props) {
     }
 
     return (
-        <authContext.Provider value={{ isAuthenticated, login, logout, userType, init, getUsersData,refreshAccessToken }}>
+        <authContext.Provider value={{ isAuthenticated, login, logout, userType, init, getUsersData, refreshAccessToken }}>
             {props.children}
         </authContext.Provider>
     )

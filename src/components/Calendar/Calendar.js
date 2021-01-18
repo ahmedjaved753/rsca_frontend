@@ -8,7 +8,7 @@ import { CgArrowLongRight } from "react-icons/cg"
 import DateComp from "../Date/Date";
 import { getDays } from "../../helpers/calendar";
 import { getAccessAuthHeader } from '../../helpers/localStorage'
-import { GET_NUMBER_OF_POSTS_OF_A_MONTH } from '../../routes';
+import { GET_NUMBER_OF_POSTS_OF_A_MONTH } from '../../helpers/routes';
 import "./calendar.css";
 
 function Calendar({ setDates }) {

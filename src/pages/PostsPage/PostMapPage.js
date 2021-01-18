@@ -17,7 +17,7 @@ import { PostsContext } from "../../contexts/PostsContext/postContext";
 import { getRandomColorOptions } from "../../contexts/PostsContext/utils";
 import PostList from "../../components/postList/PostList";
 import { getAccessAuthHeader } from "../../helpers/localStorage";
-import { GET_POSTS_BY_DATE_RANGE, BASE } from "../../routes";
+import { GET_POSTS_BY_DATE_RANGE, BASE } from "../../helpers/routes";
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import { authContext } from "../../contexts/AuthContext/AuthProvider";
@@ -33,7 +33,7 @@ let DefaultIcon = L.icon({
 L.Marker.prototype.options.icon = DefaultIcon;
 
 function PostMapPage() {
-  const { filteredPosts, center, markerToShow, updatePostsFromResponse,dates,showAll} = useContext(
+  const { filteredPosts, center, markerToShow, updatePostsFromResponse, dates, showAll } = useContext(
     PostsContext
   );
   const { refreshAccessToken, logout } = useContext(authContext);
@@ -76,9 +76,9 @@ function PostMapPage() {
                   //if data comes successfully then update posts
                   updatePostsFromResponse(response);
                 }).catch(err => {
-                //if error in second time fetch
-                message.error(err.response.statusText);
-              });
+                  //if error in second time fetch
+                  message.error(err.response.statusText);
+                });
             }).catch(err => {
               //if there is error with error in fetching token
               logout();
