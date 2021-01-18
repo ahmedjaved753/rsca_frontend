@@ -9,6 +9,7 @@ import { getAccessAuthHeader } from "../../helpers/localStorage";
 import { GET_POST_MARKERS_BY_POST_ID } from "../../routes";
 import { message } from "antd";
 import { authContext } from "../../contexts/AuthContext/AuthProvider";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -30,9 +31,11 @@ export default function PostList(props) {
     setCenter,
     posts,
     updateMarkersFromResponse,
-    filters
+    filters,
+    removePostFromFilteredPosts,
+    importPostFromFilteredPosts
   } = useContext(PostsContext);
-  const { refreshAccessToken,logout } = useContext(authContext);
+  const { refreshAccessToken, logout } = useContext(authContext);
 
   function handleMarkerClick(markerID) {
     console.log(markerID);
@@ -43,8 +46,8 @@ export default function PostList(props) {
   }
 
   useEffect(() => {
-    var fil = markers.filter((marker) => {
-      for (var i = 0; i < marker.classes.length; i++) {
+    const fil = markers.filter((marker) => {
+      for (let i = 0; i < marker.classes.length; i++) {
         if (filters.includes(marker.classes[i])) {
           return true;
         }
@@ -76,7 +79,7 @@ export default function PostList(props) {
         updateMarkersFromResponse(response);
       })
       .catch((err) => {
-        if (err.response.status == 401) {
+        if (err.response.status === 401) {
           //refresh the token
           refreshAccessToken().then((response) => {
             //if refresh token is successful
@@ -102,9 +105,10 @@ export default function PostList(props) {
             logout();
           });
         }
-        console.log("Error Reading data " + err)
+        console.log("Error Reading data " + err);
       });
   }
+
 
   return (
     <List

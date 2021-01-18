@@ -32,7 +32,7 @@ let DefaultIcon = L.icon({
 L.Marker.prototype.options.icon = DefaultIcon;
 
 function PostMapPage() {
-  const { posts, center, markerToShow, updatePostsFromResponse,dates } = useContext(
+  const { filteredPosts, center, markerToShow, updatePostsFromResponse,dates } = useContext(
     PostsContext
   );
   const { refreshAccessToken, logout } = useContext(authContext);
@@ -56,7 +56,7 @@ function PostMapPage() {
         })
         .catch((err) => {
           //if it is error due to token invalidation
-          if (err.response.status == 401) {
+          if (err.response.status === 401) {
             //refresh the token
             refreshAccessToken().then((response) => {
               //if refresh token is successful
@@ -129,7 +129,7 @@ function PostMapPage() {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <ChangeView center={center} zoom={25} scrollWheelZoom={false} />
-          {posts.map((post) => (
+          {filteredPosts.map((post) => (
             <Polyline
               pathOptions={getRandomColorOptions()}
               positions={post.completePath}
