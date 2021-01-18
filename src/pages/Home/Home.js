@@ -8,7 +8,7 @@ function Home({ userType }) {
         <div className="home-container">
             <Menu />
             <div className="file-uploader-container">
-                <FileUploader />
+                {userType === "CR" ? <FileUploader /> : null}
             </div>
         </div>
     )

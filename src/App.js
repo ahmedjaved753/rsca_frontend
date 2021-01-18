@@ -41,7 +41,7 @@ function App() {
             <PostMapPage />
           </Route>
           <Route exact path="/admin">
-            <Admin />
+            <Admin userType={userType} />
           </Route>
           <Route exact path="/search">
             <Search />
