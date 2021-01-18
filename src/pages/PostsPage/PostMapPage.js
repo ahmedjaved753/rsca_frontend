@@ -23,6 +23,7 @@ import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import { authContext } from "../../contexts/AuthContext/AuthProvider";
 import { message } from "antd";
 import Menu from "../../components/Menu/Menu";
+import Checkbox from "@material-ui/core/Checkbox";
 
 let DefaultIcon = L.icon({
   iconUrl: icon,
@@ -32,7 +33,7 @@ let DefaultIcon = L.icon({
 L.Marker.prototype.options.icon = DefaultIcon;
 
 function PostMapPage() {
-  const { filteredPosts, center, markerToShow, updatePostsFromResponse,dates } = useContext(
+  const { filteredPosts, center, markerToShow, updatePostsFromResponse,dates,showAll} = useContext(
     PostsContext
   );
   const { refreshAccessToken, logout } = useContext(authContext);

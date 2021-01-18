@@ -9,4 +9,6 @@
 
 .side-lists{
     grid-column: 9/11;
+    max-height: 100vh;
+    overflow: auto;
 }
