@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import _ from "lodash"
 import axios from "axios";
 import { v4 as uuid } from 'uuid';
@@ -13,16 +13,16 @@ import "./calendar.css";
 
 function Calendar({ setDates }) {
 
+    const [dayInCalender, setDayInCalender] = useState(new Date().getDate())
     const [monthInCalendar, setMonthInCalendar] = useState((new Date().getMonth() + 1))
     const [yearInCalendar, setYearInCalendar] = useState((new Date().getFullYear()))
     const [noOfPosts, setNoOfPosts] = useState(new Array(getDays(monthInCalendar, yearInCalendar)).fill(0))
     const [yearIncreased, setYearIncreased] = useState(0)
     const [yearDecreased, setYearDecreased] = useState(0)
-    const [dayInCalender, setDayInCalender] = useState(new Date().getDate())
     const [startDateIsClicked, setStartDateIsClicked] = useState(false)
     const [endDateIsClicked, setEndDateIsClicked] = useState(false)
-    const startDateRef = useRef(null);
-    const endDateRef = useRef(null);
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
 
 
     console.log(monthInCalendar, yearInCalendar, "month year huhhu");
@@ -79,19 +79,19 @@ function Calendar({ setDates }) {
 
     useEffect(() => {
         if (startDateIsClicked) {
-            startDateRef.current = `${dayInCalender}-${monthInCalendar}-${yearInCalendar}`;
+            setStartDate(`${dayInCalender}-${monthInCalendar}-${yearInCalendar}`);
             setDates(od => {
-                const nd = [startDateRef.current, od[1]];
+                const nd = [startDate, od[1]];
                 return nd;
             })
         } else if (endDateIsClicked) {
-            endDateRef.current = `${dayInCalender}-${monthInCalendar}-${yearInCalendar}`;
+            setEndDate(`${dayInCalender}-${monthInCalendar}-${yearInCalendar}`);
             setDates(od => {
-                const nd = [od[0], endDateRef.current];
+                const nd = [od[0], endDate];
                 return nd;
             })
         }
-    }, [monthInCalendar, dayInCalender, yearInCalendar, startDateIsClicked, endDateIsClicked, setDates])
+    }, [monthInCalendar, dayInCalender, yearInCalendar, startDateIsClicked, endDateIsClicked, setDates, startDate, endDate])
 
     useEffect(() => setStartDateIsClicked(true), []);
 
@@ -102,14 +102,14 @@ function Calendar({ setDates }) {
                     setStartDateIsClicked(true)
                     setEndDateIsClicked(false)
                 }} style={{ ...buttonStyles, boxShadow: startDateIsClicked ? "inset 3px 3px 4px 3px rgba(0,0,0,0.5)" : "none" }} type="primary" shape="round" icon={<FaCalendarAlt style={{ marginRight: "0.2em", borderColor: "transparent" }} />} size="large">
-                    {startDateIsClicked ? `${dayInCalender}-${monthInCalendar}-${yearInCalendar}` : startDateRef.current ? startDateRef.current : "Start Date"}
+                    {startDateIsClicked ? `${dayInCalender}-${monthInCalendar}-${yearInCalendar}` : startDate ? startDate : "Start Date"}
                 </Button>
                 <CgArrowLongRight style={{ width: "4em", height: "4em", }} />
                 <Button onClick={() => {
                     setEndDateIsClicked(true)
                     setStartDateIsClicked(false)
                 }} style={{ ...buttonStyles, boxShadow: endDateIsClicked ? "inset 3px 3px 4px 3px rgba(0,0,0,0.5)" : "none" }} type="primary" shape="round" icon={<FaCalendarAlt style={{ marginRight: "0.2em", borderColor: "transparent" }} />} size="large">
-                    {endDateIsClicked ? `${dayInCalender}-${monthInCalendar}-${yearInCalendar}` : endDateRef.current ? endDateRef.current : "End Date"}
+                    {endDateIsClicked ? `${dayInCalender}-${monthInCalendar}-${yearInCalendar}` : endDate ? endDate : "End Date"}
                 </Button>
             </div>
             <div className="row2">
@@ -124,6 +124,13 @@ function Calendar({ setDates }) {
                     <DateComp month={monthInCalendar} year={yearInCalendar} day={dayInCalender} setDay={setDayInCalender} key={uuid()} dateNum={n} postCount={noOfPosts[n - 1]} />
                 ))}
                 <Button
+                    onClick={() => {
+                        var date = new Date();
+                        date.setDate(date.getDate() - 1);
+                        setDayInCalender(date.getDate())
+                        setMonthInCalendar(date.getMonth() + 1)
+                        setYearInCalendar(date.getFullYear())
+                    }}
                     className="set-yesterday-button"
                     style={{
                         borderRadius: "10px",
@@ -138,6 +145,12 @@ function Calendar({ setDates }) {
                     Set Yesterday
             </Button>
                 <Button
+                    onClick={() => {
+                        var date = new Date();
+                        setDayInCalender(date.getDate())
+                        setMonthInCalendar(date.getMonth() + 1)
+                        setYearInCalendar(date.getFullYear())
+                    }}
                     className="set-today-button"
                     style={{
                         borderRadius: "10px",
@@ -152,6 +165,12 @@ function Calendar({ setDates }) {
                     Set Today
             </Button>
                 <Button
+                    onClick={() => {
+                        setStartDateIsClicked(false)
+                        setEndDateIsClicked(false)
+                        setStartDate(null)
+                        setEndDate(null)
+                    }}
                     className="clear-button"
                     style={{
                         borderRadius: "10px",

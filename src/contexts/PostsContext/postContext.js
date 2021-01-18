@@ -9,21 +9,37 @@ export const PostsContext = createContext();
 
 export function PostsContextProvider(props) {
   const [posts, setPosts] = useState([]);
+  const [filteredPosts, setFilteredPosts] = useState([]);
   const [markers, setMarkers] = useState([]);
   const [zoom, setZoom] = useState(25);
   const [center, setCenter] = useState([31.57, 31.57]);
   const [markerToShow, setMarkerToShow] = useState(null);
   const [filters, setFilters] = useState([POTHOLES, CRACKS, BLEEDS]);
   const [filteredMarkers, setFilteredMarkers] = useState([]);
-  const [dates,setDates]=useState([])
+  const [dates, setDates] = useState([]);
 
   function updatePostsFromResponse(response) {
-    setPosts(cleanPostsData(response));
+    const cleanedPosts = cleanPostsData(response);
+    setPosts(cleanedPosts);
+    setFilteredPosts(cleanedPosts);
+  }
+
+  function removePostFromFilteredPosts(postID) {
+    const newFilteredPosts=filteredPosts.filter(e=>e.id!==postID)
+    setFilteredPosts(newFilteredPosts);
+    console.log(posts)
+  }
+
+  function importPostFromFilteredPosts(postID) {
+    const indexOfPostToAdd = posts.findIndex(e => e.id === postID);
+    const newPosts=[...filteredPosts,posts[indexOfPostToAdd]]
+    setFilteredPosts(newPosts);
   }
 
   function appendPosts(newPosts) {
     setPosts((previousPosts) => [...previousPosts, ...newPosts]);
   }
+
   function appendMarkers(newMarkers) {
     setMarkers((previousMarkers) => [...previousMarkers, ...newMarkers]);
   }
@@ -38,7 +54,6 @@ export function PostsContextProvider(props) {
       value={{
         posts,
         markers,
-        setPosts,
         zoom,
         setZoom,
         center,
@@ -55,6 +70,10 @@ export function PostsContextProvider(props) {
         setFilters,
         dates,
         setDates,
+        filteredPosts,
+        setFilteredPosts,
+        removePostFromFilteredPosts,
+        importPostFromFilteredPosts,
       }}
     >
       {props.children}
