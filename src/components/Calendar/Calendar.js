@@ -78,46 +78,41 @@ function Calendar({ setDates }) {
         })
     }
 
+    useEffect(() => {
+        if (startDateIsClicked) {
+            startDateRef.current = `${dayInCalender}-${monthInCalendar}-${yearInCalendar}`;
+            setDates(od => {
+                const nd = [startDateRef.current, od[1]];
+                return nd;
+            })
+        } else if (endDateIsClicked) {
+            endDateRef.current = `${dayInCalender}-${monthInCalendar}-${yearInCalendar}`;
+            setDates(od => {
+                const nd = [od[0], endDateRef.current];
+                return nd;
+            })
+        }
+    }, [monthInCalendar, dayInCalender, yearInCalendar, startDateIsClicked, endDateIsClicked, setDates])
+
     return (
         <div className="calendar-container">
             <div className="row1">
                 <Button onClick={() => {
                     setStartDateIsClicked(true)
                     setEndDateIsClicked(false)
-                }} style={buttonStyles} type="primary" shape="round" icon={<FaCalendarAlt style={{ marginRight: "0.2em" }} />} size="large">
+                }} style={buttonStyles} type="primary" shape="round" icon={<FaCalendarAlt style={{ marginRight: "0.2em", borderColor: "transparent" }} />} size="large">
                     {startDateIsClicked ? `${dayInCalender}-${monthInCalendar}-${yearInCalendar}` : startDateRef.current ? startDateRef.current : "Start Date"}
                 </Button>
                 <CgArrowLongRight style={{ width: "4em", height: "4em", }} />
-                <Button onClick={() => {
+                <Button border={false} onClick={() => {
                     setEndDateIsClicked(true)
                     setStartDateIsClicked(false)
-                }} style={buttonStyles} type="primary" shape="round" icon={<FaCalendarAlt style={{ marginRight: "0.2em" }} />} size="large">
+                }} style={buttonStyles} type="primary" shape="round" icon={<FaCalendarAlt style={{ marginRight: "0.2em", borderColor: "transparent" }} />} size="large">
                     {endDateIsClicked ? `${dayInCalender}-${monthInCalendar}-${yearInCalendar}` : endDateRef.current ? endDateRef.current : "End Date"}
                 </Button>
             </div>
             <div className="row2">
                 <h3>{months[monthInCalendar - 1]}, {yearInCalendar}</h3>
-
-                {(startDateIsClicked || endDateIsClicked) ? <Button className="select-button" loading={loading} onClick={() => {
-                    setLoading(true);
-                    if (startDateIsClicked) {
-                        startDateRef.current = `${dayInCalender}-${monthInCalendar}-${yearInCalendar}`;
-                        setDates(od => {
-                            const nd = [startDateRef.current, od[1]];
-                            return nd;
-                        })
-                        setStartDateIsClicked(false);
-                    } else if (endDateIsClicked) {
-                        endDateRef.current = `${dayInCalender}-${monthInCalendar}-${yearInCalendar}`;
-                        setDates(od => {
-                            const nd = [od[0], endDateRef.current];
-                            return nd;
-                        })
-                        setEndDateIsClicked(false);
-                    }
-                    setTimeout(() => setLoading(false), 500)
-                }} style={{ borderRadius: "10px" }} type="primary">Select</Button> : null}
-
                 <div className="icons-container">
                     <span style={{ cursor: "pointer", display: "inline-flex", justifyContent: "center", alignContent: "center", padding: "0.4em", borderRadius: "50%", backgroundColor: "gray", opacity: ".5", marginRight: "0.5em" }}><FaLessThan onClick={decrementMonth} /></span>
                     <span style={{ cursor: "pointer", display: "inline-flex", justifyContent: "center", alignContent: "center", padding: "0.4em", borderRadius: "50%", backgroundColor: "gray", opacity: ".5", }}><FaGreaterThan onClick={increaseMonth} /></span>
