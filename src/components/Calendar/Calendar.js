@@ -21,7 +21,6 @@ function Calendar({ setDates }) {
     const [dayInCalender, setDayInCalender] = useState(new Date().getDate())
     const [startDateIsClicked, setStartDateIsClicked] = useState(false)
     const [endDateIsClicked, setEndDateIsClicked] = useState(false)
-    const [loading, setLoading] = useState(false);
     const startDateRef = useRef(null);
     const endDateRef = useRef(null);
 
@@ -54,7 +53,7 @@ function Calendar({ setDates }) {
     }, [monthInCalendar, yearInCalendar])
 
     const buttonStyles = {
-        backgroundColor: "#FF4C60"
+        backgroundColor: "#FF4C60",
     }
 
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -94,20 +93,22 @@ function Calendar({ setDates }) {
         }
     }, [monthInCalendar, dayInCalender, yearInCalendar, startDateIsClicked, endDateIsClicked, setDates])
 
+    useEffect(() => setStartDateIsClicked(true), []);
+
     return (
         <div className="calendar-container">
             <div className="row1">
                 <Button onClick={() => {
                     setStartDateIsClicked(true)
                     setEndDateIsClicked(false)
-                }} style={buttonStyles} type="primary" shape="round" icon={<FaCalendarAlt style={{ marginRight: "0.2em", borderColor: "transparent" }} />} size="large">
+                }} style={{ ...buttonStyles, boxShadow: startDateIsClicked ? "inset 3px 3px 4px 3px rgba(0,0,0,0.5)" : "none" }} type="primary" shape="round" icon={<FaCalendarAlt style={{ marginRight: "0.2em", borderColor: "transparent" }} />} size="large">
                     {startDateIsClicked ? `${dayInCalender}-${monthInCalendar}-${yearInCalendar}` : startDateRef.current ? startDateRef.current : "Start Date"}
                 </Button>
                 <CgArrowLongRight style={{ width: "4em", height: "4em", }} />
-                <Button border={false} onClick={() => {
+                <Button onClick={() => {
                     setEndDateIsClicked(true)
                     setStartDateIsClicked(false)
-                }} style={buttonStyles} type="primary" shape="round" icon={<FaCalendarAlt style={{ marginRight: "0.2em", borderColor: "transparent" }} />} size="large">
+                }} style={{ ...buttonStyles, boxShadow: endDateIsClicked ? "inset 3px 3px 4px 3px rgba(0,0,0,0.5)" : "none" }} type="primary" shape="round" icon={<FaCalendarAlt style={{ marginRight: "0.2em", borderColor: "transparent" }} />} size="large">
                     {endDateIsClicked ? `${dayInCalender}-${monthInCalendar}-${yearInCalendar}` : endDateRef.current ? endDateRef.current : "End Date"}
                 </Button>
             </div>

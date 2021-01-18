@@ -58,3 +58,7 @@
 .ant-btn {
   border-color: transparent;
 }
+
+.ant-btn:focus {
+  box-shadow: inset 3px 3px 4px 3px rgba(0, 0, 0, 0.5);
+}
