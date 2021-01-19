@@ -56,7 +56,10 @@ function PostMapPage() {
     , center//center for the whole map
     , markerToShow//the only marker that will be shown at a time
     , updatePostsFromResponse// function that will parse posts data and update posts state
-    , dates // dates for which posts will be fetched from server.
+    , dates// dates for which posts will be fetched from server.
+    , setCenter,
+    posts,
+    setSelectedPostID
   } = useContext(
     PostsContext
   );
@@ -161,6 +164,14 @@ function PostMapPage() {
     );
   }
 
+  useEffect(() => {
+    posts?.map(p=>setCenter(p.completePath[0]))
+  }, [posts]);
+
+  function handleVectorClick(postid) {
+    setSelectedPostID(postid)
+  }
+
   return (
     <div className="posts-container">
       <Menu />
@@ -181,6 +192,11 @@ function PostMapPage() {
               pathOptions={getRandomColorOptions()}
               positions={post.completePath}
               key={post.id}
+              eventHandlers={{
+                click: () => {
+                  handleVectorClick(post.id);
+                }
+              }}
             />
           ))}
           {markerToShow !== null ? (

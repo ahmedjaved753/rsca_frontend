@@ -18,6 +18,7 @@ export function PostsContextProvider(props) {
   const [filteredMarkers, setFilteredMarkers] = useState([]);// list of markers that have passed filtered test at any moment
   const [dates, setDates] = useState([]);//an array of strings [start-date,end-date] whose posts will be fetched
   const [showAll, setShowAll] = useState(true);// state for showAll checkbox on post list
+  const [selectedPostID,setSelectedPostID]=useState(-1) //to highlight selected post and scroll to that
 
   /**
    * gets returned post data from server cleans that and updates post state with it
@@ -120,7 +121,9 @@ export function PostsContextProvider(props) {
         showAll,
         setShowAll,
         resetFilteredPosts,
-        populateFilteredPostsWithAll
+        populateFilteredPostsWithAll,
+        selectedPostID,
+        setSelectedPostID
       }}
     >
       {props.children}
