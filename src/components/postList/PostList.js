@@ -36,7 +36,9 @@ export default function PostList(props) {
     showAll,
     setShowAll,
     resetFilteredPosts,
-    populateFilteredPostsWithAll
+    populateFilteredPostsWithAll,
+    selectedPostID,
+    setSelectedPostID
   } = useContext(PostsContext);
   const { refreshAccessToken, logout } = useContext(authContext);
 
@@ -69,12 +71,14 @@ export default function PostList(props) {
   }, [showAll]);
 
   function handlePostsClick(postIDs) {
+    setSelectedPostID(postIDs)
+    const postClicked = posts.find((post) => post.id === postIDs);
+    setCenter(postClicked.completePath[0]);
     if (postIDs.length === 0) return;
     if (markers.find((marker) => marker.postID === postIDs)) {
       return;
     }
-    const postClicked = posts.find((post) => post.id === postIDs);
-    setCenter(postClicked.completePath[0]);
+
     const idsString = postIDs.toString();
     const config = {
       headers: getAccessAuthHeader(),
@@ -155,6 +159,7 @@ export default function PostList(props) {
             onPostItemClick={handlePostsClick}
             innerKey={post.key}
             key={index}
+            selected={post.id===selectedPostID}
           />
         );
       })}

@@ -28,11 +28,10 @@ export default function PostListItem(props) {
     removePostFromFilteredPosts,
     importPostFromFilteredPosts,
     showAll,
+    setSelectedPostID
   } = useContext(PostsContext);
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
   const [checked, setChecked] = React.useState(showAll);
-
 
 
   const handleClick = () => {
@@ -40,17 +39,18 @@ export default function PostListItem(props) {
     if (!checked) {
       return;
     } else {
-      setOpen(!open);
       props.onPostItemClick(props.postID, checked);
     }
 
   };
 
   const handleCheckChange = () => {
-    setOpen(!checked)
+
     if(checked){
+      setSelectedPostID(-1)
       removePostFromFilteredPosts(props.postID)
     }else{
+      setSelectedPostID(props.postID)
       importPostFromFilteredPosts(props.postID)
     }
     setChecked(!checked);
@@ -59,12 +59,12 @@ export default function PostListItem(props) {
 
   useEffect(()=>{
     setChecked(showAll)
-    setOpen(false)
+    setSelectedPostID(-1)
   },[showAll])
 
   return (
     <div>
-      <ListItem button key={props.innerKey}>
+      <ListItem button key={props.innerKey} selected={props.selected} autoFocus={props.selected}>
         <ListItemIcon>
           <Checkbox
             edge="start"
@@ -76,9 +76,9 @@ export default function PostListItem(props) {
           />
         </ListItemIcon>
         <ListItemText primary={props.postTitle} id={props.postID} onClick={handleClick} />
-        {open ? <ExpandLess /> : <ExpandMore />}
+        {(props.selected) ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
-      <Collapse in={open} timeout="auto" unmountOnExit>
+      <Collapse in={(props.selected)} timeout="auto" unmountOnExit>
         {props.markers ? (
           <List component="div" disablePadding>
             {props.markers.map((marker) => (
