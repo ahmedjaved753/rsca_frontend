@@ -42,7 +42,8 @@ import Menu from "../../components/Menu/Menu";
 //-----setting marker icon settings and stuff------
 let DefaultIcon = L.icon({
   iconUrl: icon,
-  shadowUrl: iconShadow
+  shadowUrl: iconShadow,
+  iconAnchor: [12, 41],
 });
 
 L.Marker.prototype.options.icon = DefaultIcon;
