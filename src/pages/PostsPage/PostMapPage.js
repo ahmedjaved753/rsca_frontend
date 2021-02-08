@@ -180,7 +180,7 @@ function PostMapPage() {
         <MapContainer
           center={center}
           zoom={25}
-          scrollWheelZoom={false}
+          scrollWheelZoom={true}
           style={{ height: "100vh" }}
         >
           <TileLayer
