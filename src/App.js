@@ -17,6 +17,7 @@ import Home from "./pages/Home/Home";
 import Search from "./pages/Search/Search";
 import PostMapPage from "./pages/PostsPage/PostMapPage";
 import { PostsContextProvider } from "./contexts/PostsContext/postContext";
+import ROISearch from "./pages/ROISearch/ROISearch";
 
 import { authContext } from "./contexts/AuthContext/AuthProvider";
 
@@ -36,6 +37,9 @@ function App() {
           </Route>
           <Route exact path="/login">
             <Signin />
+          </Route>
+          <Route exact path="/roi">
+            <ROISearch />
           </Route>
           <Route exact path="/posts">
             <PostMapPage />

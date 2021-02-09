@@ -12,7 +12,7 @@ import {
   Popup,
   Polyline,
   useMap
-} from "react-leaflet";
+} from "react-leaflet-3";
 //pages own css
 import "./postMapPage.css";
 //for showing marker currently
