@@ -2,33 +2,31 @@ import { Map, TileLayer, FeatureGroup, MapControl } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { EditControl } from "react-leaflet-draw";
 import "leaflet-draw/dist/leaflet.draw.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import {PostsContext} from "../../contexts/PostsContext/postContext"
 import { Button } from "antd";
 
 function ROISearch() {
-  const [rectCords, setRectCords] = useState({});
+
 
   const [editableFG, setEditableFG] = useState(null);
+  const {searchingCords,setSearchingCords}=useContext(PostsContext)
 
   const onCreated = e => {
-    console.log(e);
-    console.log(editableFG);
 
     const drawnItems = editableFG.leafletElement._layers;
-    console.log(drawnItems);
     if (Object.keys(drawnItems).length > 1) {
       Object.keys(drawnItems).forEach((layerid, index) => {
         if (index > 0) return;
         const layer = drawnItems[layerid];
         editableFG.leafletElement.removeLayer(layer);
       });
-      console.log(drawnItems);
     }
     const data = {
       type: e.layerType,
       coordinates: e.layer.getLatLngs()
     };
-    setRectCords(data);
+    setSearchingCords(data);
   };
 
   const onFeatureGroupReady = reactFGref => {
@@ -36,27 +34,17 @@ function ROISearch() {
     setEditableFG(reactFGref);
   };
 
-  function _created(e) {
-    console.log(e);
-    const data = {
-      type: e.layerType,
-      coordinates: e.layer.getLatLngs()
-    };
-    setRectCords(data);
-
-  }
-
   useEffect(() => {
-    console.log(rectCords);
-  }, [rectCords]);
+    console.log(searchingCords);
+  }, [searchingCords]);
 
   return (
-    <div style={{ display: "grid", margin: "2rem", gridGap: ".5rem" }}>
+    <div style={{paddingRight:".8rem"}}>
       <Map
-        center={[31, 74]}
-        zoom={12}
+        center={[31.57081041, 74.30725466]}
+        zoom={35}
         scrollWheelZoom={true}
-        style={{ height: "80vh" }}
+        style={{ height: "100%" }}
       >
         <FeatureGroup
           ref={featureGroupRef => {
@@ -78,11 +66,7 @@ function ROISearch() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
       </Map>
-      <div style={{ textAlign: "center" }}>
-        <Button type="primary" shape="round" size={"large"}>
-          Search
-        </Button>
-      </div>
+
     </div>
 
   );

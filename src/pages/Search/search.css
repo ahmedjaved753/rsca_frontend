@@ -34,3 +34,9 @@
   border: none;
   outline: none;
 }
+
+.buttons-container{
+  align-content: center;
+  align-items: center;
+  text-align: center;
+}
