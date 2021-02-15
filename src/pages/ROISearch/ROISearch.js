@@ -14,6 +14,7 @@ function ROISearch() {
 
   const onCreated = e => {
 
+    console.log(e)
     const drawnItems = editableFG.leafletElement._layers;
     if (Object.keys(drawnItems).length > 1) {
       Object.keys(drawnItems).forEach((layerid, index) => {
