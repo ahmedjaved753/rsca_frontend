@@ -4,6 +4,7 @@ import 'antd/dist/antd.css';
 import { Upload, Progress, Alert } from "antd";
 import { getAccessToken } from '../../helpers/localStorage'
 import { UPLOAD_FILE } from '../../helpers/routes'
+import './file-uploader.css'
 
 function FileUploader(props) {
     const [title, setTitle] = useState("");
@@ -61,7 +62,7 @@ function FileUploader(props) {
         setDefaultFileList(fileList);
     };
     return (
-        <div>
+        <div className="outer-container" id="outer-container-id">
             {titleError ? (
                 <Alert
                     message="Error"
@@ -70,11 +71,12 @@ function FileUploader(props) {
                     showIcon
                 />
             ) : null}
-            <h1>New Post</h1>
+            <h1>Add New Post</h1>
             <textarea
                 type="text"
                 placeholder="Enter title"
                 value={title}
+                style={{borderRadius:"0.3rem"}}
                 onChange={(e) => {
                     setInitalTitleError(false);
                     if (e.target.value === "") {
@@ -98,7 +100,7 @@ function FileUploader(props) {
                     disabled={titleError || initalTitleError}
                     beforeUpload={beforeUpload}
                 >
-                    {defaultFileList.length >= 1 ? null : <div>Upload Button</div>}
+                    {defaultFileList.length >= 1 ? null : <div>Upload</div>}
                 </Upload>
                 {progress > 0 ? <Progress percent={progress} /> : null}
             </div>

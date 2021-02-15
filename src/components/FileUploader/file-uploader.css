@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+.outer-container{
+    text-align: center;
+    padding: 3rem;
+    box-shadow: 3px 2px 30px 3px rgba(108, 99, 255, 0.2);
+    border-radius: 10%;
+    color:#333951;
+}
+h1{
+    color: #333951;
+    font-family: 'Open Sans';
+    font-weight: 600;
+}
+
+
+
