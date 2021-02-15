@@ -13,8 +13,6 @@ function ROISearch() {
   const {searchingCords,setSearchingCords}=useContext(PostsContext)
 
   const onCreated = e => {
-
-    console.log(e)
     const drawnItems = editableFG.leafletElement._layers;
     if (Object.keys(drawnItems).length > 1) {
       Object.keys(drawnItems).forEach((layerid, index) => {
@@ -23,21 +21,28 @@ function ROISearch() {
         editableFG.leafletElement.removeLayer(layer);
       });
     }
-    const data = {
-      type: e.layerType,
-      coordinates: e.layer.getLatLngs()
-    };
-    setSearchingCords(data);
+    setSearchingCords(e.layer.getLatLngs());
   };
 
+  const onEdited=e=>{
+    var layers = e.layers;
+    layers.eachLayer(function (layer) {
+      //do whatever you want; most likely save back to db
+      setSearchingCords(layer.getLatLngs())
+    });
+  }
+
+  const onDeleted=e=>{
+    setSearchingCords([])
+  }
+  useEffect(()=>{
+    console.log("searching coords",searchingCords)
+  },[searchingCords])
   const onFeatureGroupReady = reactFGref => {
     // store the ref for future access to content
     setEditableFG(reactFGref);
   };
 
-  useEffect(() => {
-    console.log(searchingCords);
-  }, [searchingCords]);
 
   return (
     <div style={{paddingRight:".8rem"}}>
@@ -53,6 +58,8 @@ function ROISearch() {
           }}>
           <EditControl position={"topright"}
                        onCreated={onCreated}
+                       onEdited={onEdited}
+                       onDeleted={onDeleted}
                        draw={{
                          circle: false,
                          line: false,

@@ -20,7 +20,7 @@ export function PostsContextProvider(props) {
   const [showAll, setShowAll] = useState(true);// state for showAll checkbox on post list
   const [selectedPostID, setSelectedPostID] = useState(-1); //to highlight selected post and scroll to that
   const [searchBy, setSearchBy] = useState("dates");
-  const [searchingCords,setSearchingCords] = useState({});
+  const [searchingCords,setSearchingCords] = useState([]);
 
     /**
      * gets returned post data from server cleans that and updates post state with it
@@ -110,6 +110,17 @@ export function PostsContextProvider(props) {
     function isSearchingByROI(){
       return searchBy==="roi"
     }
+
+    function clearAllData(){
+      setPosts([]);
+      setMarkers([])
+      setMarkerToShow(null)
+      setFilteredPosts([])
+      setDates([])
+      setFilteredMarkers([])
+      setSearchingCords([])
+      setSelectedPostID(-1)
+    }
     return (
     <PostsContext.Provider
     value={{
@@ -146,7 +157,8 @@ export function PostsContextProvider(props) {
       isSearchingByDates,
       isSearchingByROI,
       searchingCords,
-      setSearchingCords
+      setSearchingCords,
+      clearAllData,
     }}
     >
     {props.children}
