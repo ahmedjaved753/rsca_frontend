@@ -10,9 +10,11 @@ function ROISearch() {
 
 
   const [editableFG, setEditableFG] = useState(null);
-  const {searchingCords,setSearchingCords}=useContext(PostsContext)
+  const {searchingCords,setSearchingCords,setCenter}=useContext(PostsContext)
 
   const onCreated = e => {
+    console.log("center",e.layer.getCenter().lat)
+    setCenter([e.layer.getCenter().lat,e.layer.getCenter().lng])
     const drawnItems = editableFG.leafletElement._layers;
     if (Object.keys(drawnItems).length > 1) {
       Object.keys(drawnItems).forEach((layerid, index) => {
@@ -28,6 +30,7 @@ function ROISearch() {
     var layers = e.layers;
     layers.eachLayer(function (layer) {
       //do whatever you want; most likely save back to db
+      setCenter([layer.getCenter().lat,layer.getCenter().lng])
       setSearchingCords(layer.getLatLngs())
     });
   }

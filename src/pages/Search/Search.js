@@ -1,21 +1,23 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { message } from "antd";
+import { message, Spin } from "antd";
 import Calendar from "../../components/Calendar/Calendar";
 import Menu from "../../components/Menu/Menu";
 import { PostsContext } from "../../contexts/PostsContext/postContext";
-import {Select } from "antd";
+import { Select } from "antd";
 import ROISearch from "../ROISearch/ROISearch";
 import "./search.css";
 import { getAccessAuthHeader } from "../../helpers/localStorage";
-import { GET_POSTS_BY_DATE_RANGE } from "../../helpers/routes";
+import { GET_POSTS_BY_DATE_RANGE, GET_POSTS_BY_ROI } from "../../helpers/routes";
 import axios from "axios";
 import { authContext } from "../../contexts/AuthContext/AuthProvider";
 
-const Option={Select}
+const Option = { Select };
+
 function Search() {
   const [dates, setDates] = useState([]);
-  const { setDates: setDatesInContext, isSearchingByDates, toggleSearchToDates, toggleSearchToROI,dates:datesInContext,updatePostsFromResponse,clearAllData } = useContext(PostsContext);
+  const [loadingPosts, setLoadingPosts] = useState(false);
+  const { setDates: setDatesInContext, isSearchingByDates, toggleSearchToDates, toggleSearchToROI, dates: datesInContext, updatePostsFromResponse, clearAllData, searchingCords,setSearchingCords } = useContext(PostsContext);
   const history = useHistory();
 
   //auth stuff imported from auth context
@@ -35,8 +37,12 @@ function Search() {
         end_date: dates[1]
       }
     };
-    //url for getting posts from urls file
-    const url = GET_POSTS_BY_DATE_RANGE;
+    fetchPosts(GET_POSTS_BY_DATE_RANGE, config);
+
+  };
+
+  function fetchPosts(url, config) {
+    setLoadingPosts(true);
     //perform get request with config
     axios
       .get(url, config)
@@ -44,7 +50,13 @@ function Search() {
         //if request successfully gets data them clean and update state
         console.log(response.data);
         updatePostsFromResponse(response);
-        history.push("/posts")
+        setLoadingPosts(false);
+        if (response.status === 204) {
+          message.info("No data found");
+        } else {
+          history.push("/posts");
+        }
+
       })
       .catch((err) => {
         //if we get some error the
@@ -53,24 +65,21 @@ function Search() {
           //refresh the token
           refreshAccessToken().then((response) => {
             //if refresh token is successful
-            //perform request again
-            const config = {
-              headers: getAccessAuthHeader(),
-
-              params: {
-                start_date: dates[0],
-                end_date: dates[1]
-              }
-            };
             //send request again
             axios
               .get(url, config)
               .then(response => {
                 //if data comes successfully then update posts
                 updatePostsFromResponse(response);
-                history.push("/posts")
+                setLoadingPosts(false);
+                if (response.status === 204) {
+                  message.info("No data found");
+                } else {
+                  history.push("/posts");
+                }
               }).catch(err => {
               //if error in second time fetch
+              setLoadingPosts(false);
               message.error(err.response.statusText);
             });
           }).catch(err => {
@@ -80,30 +89,52 @@ function Search() {
         }
         // If the error is not because of token
         console.log("Error Reading data " + err);
+        setLoadingPosts(false);
       });
+  }
+
+  const fetchDataByROI = () => {
+    if(!searchingCords || searchingCords.length===0){
+      message.error("Please select any area first...");
+      return ;
+    }
+    const config = {
+      //access token in header for jwt auth
+      headers: getAccessAuthHeader(),
+
+      params: {
+        coordinates: searchingCords[0].map(obj => obj.lat + "," + obj.lng).reduce((a, b) => a + "|" + b)
+      }
+    };
+    setSearchingCords([])
+    fetchPosts(GET_POSTS_BY_ROI, config);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     clearAllData();
-  },[])
+  }, []);
 
   function handleClick() {
-    console.log(dates, "ye rhi dates");
-    // eslint-disable-next-line
-    if (dates[0] == undefined || dates[1] == undefined) {
-      message.error("Please select the start and end dates");
-      return;
+    if (isSearchingByDates()) {
+      console.log(dates, "ye rhi dates");
+      // eslint-disable-next-line
+      if (dates[0] == undefined || dates[1] == undefined) {
+        message.error("Please select the start and end dates");
+        return;
+      } else {
+        setDatesInContext(dates);
+        fetchDataByDates();
+      }
     } else {
-      setDatesInContext(dates);
-      fetchDataByDates();
+      fetchDataByROI();
     }
   }
 
   function handleSearchByChange(e) {
-    if(e==="dates"){
-      toggleSearchToDates()
-    }else if(e==="roi"){
-      toggleSearchToROI()
+    if (e === "dates") {
+      toggleSearchToDates();
+    } else if (e === "roi") {
+      toggleSearchToROI();
     }
   }
 
@@ -113,20 +144,32 @@ function Search() {
       <main className="main-content">
         <div className="buttons-container">
 
-          <Select defaultValue="dates" style={{ width: "30%", margin:"10px" }} onChange={handleSearchByChange}>
+          <Select defaultValue="dates" style={{ width: "30%", margin: "10px" }} onChange={handleSearchByChange}>
             <Option value="dates">Search By Dates</Option>
             <Option value="roi">Search By ROI</Option>
           </Select>
         </div>
         {
+
           isSearchingByDates() ? (
             <div className="calender-and-filters-container">
-              <Calendar setDates={setDates} />
+              {
+                loadingPosts ? <Spin className="loader" size="large" tip={"Fetching posts..."} /> :
+                  <Calendar setDates={setDates} />
+              }
             </div>
-          ) : (<ROISearch />)
+          ) : (
+                loadingPosts ? <Spin className="loader" size="large" tip={"Fetching posts..."} /> :
+                  <ROISearch />
+          )
         }
 
-        <button onClick={handleClick} className="search-button">Search</button>
+        <button onClick={() => {
+          if (!loadingPosts) {
+            handleClick();
+          }
+        }} className="search-button">Search
+        </button>
       </main>
     </div>
   );

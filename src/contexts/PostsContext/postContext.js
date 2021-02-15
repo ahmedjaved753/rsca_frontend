@@ -120,6 +120,7 @@ export function PostsContextProvider(props) {
       setFilteredMarkers([])
       setSearchingCords([])
       setSelectedPostID(-1)
+      setSearchBy("dates")
     }
     return (
     <PostsContext.Provider
