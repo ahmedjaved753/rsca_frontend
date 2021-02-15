@@ -29,13 +29,18 @@ function Admin({ userType }) {
     }
 
     useEffect(() => {
+      setLoading(true)
         axios.get(USERS, { headers: getAccessAuthHeader() })
             .then(res => {
                 setUsers(res.data)
                 usersRef.current = res.data;
                 console.log(res.data);
+                setLoading(false)
             })
-            .catch(console.log)
+            .catch(err=>{
+              console.log(err)
+              setLoading(false)
+            })
     }, [newUserAdded])
 
     function handleOnSubmit(e) {
@@ -75,7 +80,7 @@ function Admin({ userType }) {
         userType === "AD" ? (
             <div className="admin-container">
                 <Menu />
-                <UsersList users={users} usersRef={usersRef} setUsers={setUsers} setUserIsClicked={setUserIsClicked} setCurrentUser={setCurrentUser} />
+                <UsersList users={users} usersRef={usersRef} setUsers={setUsers} setUserIsClicked={setUserIsClicked} setCurrentUser={setCurrentUser} loading={loading}/>
                 <div className="verticle-line">
                 </div>
                 {userIsClicked && <UserDetails setUsers={setUsers} user={currentUser} onUserDelete={onUserDelete} />}

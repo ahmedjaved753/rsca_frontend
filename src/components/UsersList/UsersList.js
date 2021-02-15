@@ -1,10 +1,10 @@
 import { v4 as uuid } from 'uuid';
-import { Input } from 'antd';
+import { Input,Spin } from 'antd';
 import { RiSearchLine } from "react-icons/ri";
 import './users-list.css'
 import User from '../User/User';
 
-function UsersList({ users, setUserIsClicked, setCurrentUser, setUsers, usersRef }) {
+function UsersList({ users, setUserIsClicked, setCurrentUser, setUsers, usersRef,loading }) {
 
     const usersList = users.map(user => <User setUserIsClicked={setUserIsClicked} setCurrentUser={setCurrentUser} key={uuid()} user={user} />)
     function onChangeHandler(e) {
@@ -13,12 +13,14 @@ function UsersList({ users, setUserIsClicked, setCurrentUser, setUsers, usersRef
 
     return (
         <div className="usersList-container">
+          <Spin spinning={loading} tip={"fetching users..."} size={"middle"}>
             <div className="input-container">
                 <Input onChange={onChangeHandler} size="large" className="input-styles" placeholder="Search" prefix={<RiSearchLine />} />
             </div>
             <div className="list-container">
                 {usersList}
             </div>
+          </Spin>
         </div>
     )
 }
