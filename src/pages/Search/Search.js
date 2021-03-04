@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { message, Spin } from "antd";
 import Calendar from "../../components/Calendar/Calendar";
-import Menu from "../../components/Menu/Menu";
+import Navbar from "../../components/Navbar/Navbar";
 import { PostsContext } from "../../contexts/PostsContext/postContext";
 import { Select } from "antd";
 import ROISearch from "../ROISearch/ROISearch";
@@ -17,7 +17,7 @@ const Option = { Select };
 function Search() {
   const [dates, setDates] = useState([]);
   const [loadingPosts, setLoadingPosts] = useState(false);
-  const { setDates: setDatesInContext, isSearchingByDates, toggleSearchToDates, toggleSearchToROI, dates: datesInContext, updatePostsFromResponse, clearAllData, searchingCords,setSearchingCords } = useContext(PostsContext);
+  const { setDates: setDatesInContext, isSearchingByDates, toggleSearchToDates, toggleSearchToROI, dates: datesInContext, updatePostsFromResponse, clearAllData, searchingCords, setSearchingCords } = useContext(PostsContext);
   const history = useHistory();
 
   //auth stuff imported from auth context
@@ -78,10 +78,10 @@ function Search() {
                   history.push("/posts");
                 }
               }).catch(err => {
-              //if error in second time fetch
-              setLoadingPosts(false);
-              message.error(err.response.statusText);
-            });
+                //if error in second time fetch
+                setLoadingPosts(false);
+                message.error(err.response.statusText);
+              });
           }).catch(err => {
             //if there is error with error in fetching token
             logout();
@@ -94,9 +94,9 @@ function Search() {
   }
 
   const fetchDataByROI = () => {
-    if(!searchingCords || searchingCords.length===0){
+    if (!searchingCords || searchingCords.length === 0) {
       message.error("Please select any area first...");
-      return ;
+      return;
     }
     const config = {
       //access token in header for jwt auth
@@ -112,7 +112,7 @@ function Search() {
 
   useEffect(() => {
     clearAllData();
-  }, []);
+  }, [clearAllData]);
 
   function handleClick() {
     if (isSearchingByDates()) {
@@ -140,7 +140,7 @@ function Search() {
 
   return (
     <div className="search-container">
-      <Menu />
+      <Navbar />
       <main className="main-content">
         <div className="buttons-container">
 
@@ -159,9 +159,9 @@ function Search() {
               }
             </div>
           ) : (
-                loadingPosts ? <Spin className="loader" size="large" tip={"Fetching posts..."} /> :
-                  <ROISearch />
-          )
+              loadingPosts ? <Spin className="loader" size="large" tip={"Fetching posts..."} /> :
+                <ROISearch />
+            )
         }
 
         <button onClick={() => {

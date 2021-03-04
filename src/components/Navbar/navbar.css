@@ -1,0 +1,9 @@
+.navbar-container {
+  grid-column: 1 / span 10;
+  grid-row: 1/2;
+  height: 100%;
+}
+
+.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit {
+  font-size: 1.3rem;
+}

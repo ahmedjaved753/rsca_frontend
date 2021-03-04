@@ -15,6 +15,7 @@ import Signin from "./pages/Signin/Signin";
 import Admin from "./pages/Admin/Admin";
 import Home from "./pages/Home/Home";
 import Search from "./pages/Search/Search";
+import Navbar from './components/Navbar/Navbar'
 import PostMapPage from "./pages/PostsPage/PostMapPage";
 import { PostsContextProvider } from "./contexts/PostsContext/postContext";
 import ROISearch from "./pages/ROISearch/ROISearch";
@@ -62,6 +63,7 @@ function App() {
         </Switch>
       </div>
     </PostsContextProvider>
+    // <Navbar />
   );
 }
 

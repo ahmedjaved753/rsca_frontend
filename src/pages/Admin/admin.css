@@ -1,8 +1,15 @@
 .admin-container {
   display: grid;
+  grid-template-rows: 10% 90%;
   grid-template-columns: repeat(10, 1fr);
   column-gap: 10px;
   height: 100vh;
+}
+
+.main-content {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-row: 2/3;
 }
 
 .verticle-line {
