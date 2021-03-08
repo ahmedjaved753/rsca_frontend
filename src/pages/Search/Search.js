@@ -145,8 +145,8 @@ function Search() {
         <div className="buttons-container">
 
           <Select defaultValue="dates" style={{ width: "30%", margin: "10px" }} onChange={handleSearchByChange}>
-            <Option value="dates">Search By Dates</Option>
-            <Option value="roi">Search By ROI</Option>
+            <Select.Option value="dates">Search By Dates</Select.Option>
+            <Select.Option value="roi">Search By ROI</Select.Option>
           </Select>
         </div>
         {
