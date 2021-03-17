@@ -9,13 +9,13 @@ import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import SearchIcon from '@material-ui/icons/Search';
+import Logo from "../svgs/rsca_logo.png";
 import { authContext } from '../../contexts/AuthContext/AuthProvider'
 import './navbar.css'
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        flexGrow: 1,
+        flexGrow: 1
     },
     menuButton: {
         marginRight: theme.spacing(2),
@@ -66,11 +66,11 @@ export default function MenuAppBar() {
 
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                    {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                         <MenuIcon />
-                    </IconButton>
+                    </IconButton> */}
                     <Typography variant="h6" className={classes.title}>
-                        Logo
+                        <img style={{ height: "3rem", width: "4rem" }} src={Logo} alt="Logo" />
                     </Typography>
                     <div>
                         {

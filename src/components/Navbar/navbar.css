@@ -4,6 +4,10 @@
   height: 100%;
 }
 
+.MuiPaper-root.MuiAppBar-root.MuiAppBar-positionStatic.MuiAppBar-colorPrimary.MuiPaper-elevation4 {
+  background-color: #292d3e;
+}
+
 .MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit {
   font-size: 1.3rem;
 }
