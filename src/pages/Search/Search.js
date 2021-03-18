@@ -15,6 +15,7 @@ import { authContext } from "../../contexts/AuthContext/AuthProvider";
 const Option = { Select };
 
 function Search() {
+
   const [dates, setDates] = useState([]);
   const [loadingPosts, setLoadingPosts] = useState(false);
   const { setDates: setDatesInContext, isSearchingByDates, toggleSearchToDates, toggleSearchToROI, dates: datesInContext, updatePostsFromResponse, clearAllData, searchingCords, setSearchingCords } = useContext(PostsContext);
@@ -78,10 +79,10 @@ function Search() {
                   history.push("/posts");
                 }
               }).catch(err => {
-                //if error in second time fetch
-                setLoadingPosts(false);
-                message.error(err.response.statusText);
-              });
+              //if error in second time fetch
+              setLoadingPosts(false);
+              message.error(err.response.statusText);
+            });
           }).catch(err => {
             //if there is error with error in fetching token
             logout();
@@ -106,13 +107,13 @@ function Search() {
         coordinates: searchingCords[0].map(obj => obj.lat + "," + obj.lng).reduce((a, b) => a + "|" + b)
       }
     };
-    setSearchingCords([])
+    setSearchingCords([]);
     fetchPosts(GET_POSTS_BY_ROI, config);
   };
 
   useEffect(() => {
     clearAllData();
-  }, [clearAllData]);
+  }, []);
 
   function handleClick() {
     if (isSearchingByDates()) {
@@ -159,9 +160,9 @@ function Search() {
               }
             </div>
           ) : (
-              loadingPosts ? <Spin className="loader" size="large" tip={"Fetching posts..."} /> :
-                <ROISearch />
-            )
+            loadingPosts ? <Spin className="loader" size="large" tip={"Fetching posts..."} /> :
+              <ROISearch />
+          )
         }
 
         <button onClick={() => {
