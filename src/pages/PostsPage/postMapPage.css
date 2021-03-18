@@ -1,14 +1,15 @@
-.posts-container{
-    display: grid;
-    grid-template-columns: repeat(10,1fr);
-    column-gap: 0.2em;
+.posts-container {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: 10% 90%;
+  column-gap: 0.2em;
 }
-.map-container-mine{
-    grid-column: 2/9;
+.map-container-mine {
+  grid-column: 2/9;
 }
 
-.side-lists{
-    grid-column: 9/11;
-    max-height: 100vh;
-    overflow: auto;
+.side-lists {
+  grid-column: 9/11;
+  max-height: 100vh;
+  overflow: auto;
 }

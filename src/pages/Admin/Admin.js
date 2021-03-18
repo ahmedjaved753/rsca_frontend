@@ -80,7 +80,7 @@ function Admin({ userType }) {
         userType === "AD" ? (
             <div className="admin-container">
                 <Navbar />
-                <div className="main-content">
+                <div className="main-content-admin">
                     <UsersList users={users} usersRef={usersRef} setUsers={setUsers} setUserIsClicked={setUserIsClicked} setCurrentUser={setCurrentUser} loading={loading} />
                     <div className="verticle-line">
                     </div>
@@ -122,18 +122,18 @@ function Admin({ userType }) {
             </div>
 
         ) : (
-                <div className="admin-container">
-                    <Navbar />
-                    <FaLock style={{
-                        gridColumn: "2/11",
-                        justifySelf: "center",
-                        alignSelf: "center",
-                        color: "red",
-                        height: "30vh",
-                        width: "30vw"
-                    }} />
-                </div>
-            )
+            <div className="admin-container">
+                <Navbar />
+                <FaLock style={{
+                    gridColumn: "2/11",
+                    justifySelf: "center",
+                    alignSelf: "center",
+                    color: "red",
+                    height: "30vh",
+                    width: "30vw"
+                }} />
+            </div>
+        )
 
     )
 }

@@ -142,7 +142,7 @@ function Search() {
   return (
     <div className="search-container">
       <Navbar />
-      <main className="main-content">
+      <main className="main-content-search">
         <div className="buttons-container">
 
           <Select defaultValue="dates" style={{ width: "30%", margin: "10px" }} onChange={handleSearchByChange}>

@@ -30,8 +30,7 @@ import iconShadow from "leaflet/dist/images/marker-shadow.png";
 //auth context for whole application
 import { authContext } from "../../contexts/AuthContext/AuthProvider";
 //side menu for page
-import Menu from "../../components/Menu/Menu";
-
+import Navbar from '../../components/Navbar/Navbar'
 //-----setting marker icon settings and stuff------
 let DefaultIcon = L.icon({
   iconUrl: icon,
@@ -86,6 +85,7 @@ function PostMapPage() {
             src={BASE + props.marker.imagePath.substring(1)}
             width={200}
             height={200}
+            alt=""
           />
         </Popup>
       </Marker>
@@ -93,7 +93,7 @@ function PostMapPage() {
   }
 
   useEffect(() => {
-    posts?.map(p=>setCenter(p.completePath[0]))
+    posts?.map(p => setCenter(p.completePath[0]))
   }, [posts]);
 
   function handleVectorClick(postid) {
@@ -102,7 +102,7 @@ function PostMapPage() {
 
   return (
     <div className="posts-container">
-      <Menu />
+      <Navbar />
       <div className="map-container-mine">
         <MapContainer
           center={center}

@@ -3,13 +3,23 @@
   grid-template-rows: 10% 90%;
   grid-template-columns: repeat(10, 1fr);
   column-gap: 10px;
+  /* position: absolute; */
+  /* justify-content: center;
+  align-items: center; */
   height: 100vh;
+  width: 100vw;
 }
 
-.main-content {
+.main-content-admin {
+  /* margin-top: 300px; */
   display: grid;
+  /* justify-content: center;
+  align-items: center; */
+  grid-column: 1/11;
   grid-template-columns: repeat(10, 1fr);
   grid-row: 2/3;
+  /* width: 100%; */
+  /* height: 100%; */
 }
 
 .verticle-line {

@@ -5,7 +5,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -30,6 +29,9 @@ export default function MenuAppBar() {
     const [logoutEl, setLogoutEl] = React.useState(null);
     const [postsEl, setPostsEl] = React.useState(null);
     const [userData, setUserData] = React.useState({});
+
+    const { logout } = useContext(authContext);
+
 
     const logoutOpen = Boolean(logoutEl);
     const postsOpen = Boolean(postsEl);
@@ -81,9 +83,9 @@ export default function MenuAppBar() {
                                 // onClick={handleMenu}
                                 color="inherit"
                             >
-                                <Link to='/search'>
+                                <Link to='/admin'>
                                     Admin
-                            </Link>
+                                </Link>
                             </IconButton>
                         }
 
@@ -95,8 +97,8 @@ export default function MenuAppBar() {
                                 onClick={handleMenuPosts}
                                 color="inherit"
                             >
-                                Posts
-                            <ExpandMoreIcon />
+                                <Link to="">Posts</Link>
+                                <ExpandMoreIcon />
                             </IconButton>
                         }
                         {
@@ -115,7 +117,7 @@ export default function MenuAppBar() {
                                 open={postsOpen}
                                 onClose={handleClosePosts}
                             >
-                                <MenuItem onClick={handleClosePosts}>Add Post</MenuItem>
+                                <MenuItem onClick={handleClosePosts}><Link to='/'>Add Post</Link></MenuItem>
                                 <MenuItem onClick={handleClosePosts}>Delete Post</MenuItem>
                                 <MenuItem onClick={handleClosePosts}>Delete Marker</MenuItem>
                             </Menu>
@@ -158,7 +160,7 @@ export default function MenuAppBar() {
                             open={logoutOpen}
                             onClose={handleCloseLogout}
                         >
-                            <MenuItem onClick={handleCloseLogout}>Logout</MenuItem>
+                            <MenuItem onClick={() => { handleCloseLogout(); logout(); }}>Logout</MenuItem>
                         </Menu>
                     </div>
                 </Toolbar>

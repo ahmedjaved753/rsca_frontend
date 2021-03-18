@@ -8,11 +8,11 @@
   height: 100vh;
 }
 
-.main-content {
+.main-content-search {
   grid-column: 1/11;
   display: grid;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: 10% 80% 10%;
   grid-row: 2/3;
