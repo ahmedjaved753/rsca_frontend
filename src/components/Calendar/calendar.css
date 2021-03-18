@@ -1,9 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
 
 .calendar-container {
+  grid-column: 1/11;
+  justify-self: center;
+  /* margin: 0 auto; */
+  grid-row: 2/3;
   display: grid;
+  justify-content: center;
+  align-items: center;
   grid-template-rows: 15% 10% 75%;
-  width: 45%;
+  /* width: 95; */
   box-shadow: 3px 2px 30px 3px rgba(108, 99, 255, 0.2);
   border-radius: 15px;
   padding: 1em;
@@ -11,10 +17,14 @@
 
 .calendar-core {
   display: grid;
+  justify-content: center;
+  align-items: center;
+  justify-self: center;
   grid-template-columns: repeat(10, 1fr);
   gap: 8px 5px;
   font-family: Ubuntu;
   margin: 4px;
+  width: 100%;
 }
 
 .set-yesterday-button {

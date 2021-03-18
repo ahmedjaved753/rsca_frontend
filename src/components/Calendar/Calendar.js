@@ -107,7 +107,7 @@ function Calendar({ setDates }) {
         return nd;
       });
     }
-  }, [monthInCalendar, dayInCalender, yearInCalendar, startDateIsClicked, endDateIsClicked, startDate, endDate]);
+  }, [monthInCalendar, dayInCalender, setDates, yearInCalendar, startDateIsClicked, endDateIsClicked, startDate, endDate]);
 
   useEffect(() => setStartDateIsClicked(true), []);
 

@@ -1,5 +1,7 @@
 .search-container {
   display: grid;
+  /* justify-content: center;
+  align-items: center; */
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: 10% 90%;
   column-gap: 10px;
@@ -9,13 +11,17 @@
 .main-content {
   grid-column: 1/11;
   display: grid;
+  justify-content: center;
+  align-items: center;
   grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: 10% 80% 10%;
   grid-row: 2/3;
   grid-template-rows: 10vh auto 20vh;
 }
 
 .calender-and-filters-container {
-  display: flex;
+  display: grid;
+  width: 100vw;
   justify-content: center;
   align-items: center;
 }
@@ -34,6 +40,7 @@
 }
 
 .search-button {
+  grid-row: 3/4;
   border: none;
   outline: none;
   font-size: 1rem;
@@ -43,6 +50,7 @@
 
 .buttons-container {
   grid-column: 1/11;
+  grid-row: 1/2;
   align-content: center;
   align-items: center;
   text-align: center;

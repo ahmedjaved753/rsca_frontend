@@ -81,7 +81,9 @@ export default function MenuAppBar() {
                                 // onClick={handleMenu}
                                 color="inherit"
                             >
-                                Admin
+                                <Link to='/search'>
+                                    Admin
+                            </Link>
                             </IconButton>
                         }
 

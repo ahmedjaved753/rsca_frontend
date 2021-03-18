@@ -12,8 +12,6 @@ import { GET_POSTS_BY_DATE_RANGE, GET_POSTS_BY_ROI } from "../../helpers/routes"
 import axios from "axios";
 import { authContext } from "../../contexts/AuthContext/AuthProvider";
 
-const Option = { Select };
-
 function Search() {
 
   const [dates, setDates] = useState([]);
@@ -79,10 +77,10 @@ function Search() {
                   history.push("/posts");
                 }
               }).catch(err => {
-              //if error in second time fetch
-              setLoadingPosts(false);
-              message.error(err.response.statusText);
-            });
+                //if error in second time fetch
+                setLoadingPosts(false);
+                message.error(err.response.statusText);
+              });
           }).catch(err => {
             //if there is error with error in fetching token
             logout();
