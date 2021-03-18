@@ -25,6 +25,7 @@ import { authContext } from "./contexts/AuthContext/AuthProvider";
 
 function App() {
   const { init, userType, isAuthenticated } = useContext(authContext);
+  console.log("app rerendring");
 
   useEffect(() => {
     init();
@@ -56,8 +57,8 @@ function App() {
               isAuthenticated ? (
                 <Home userType={userType} />
               ) : (
-                  <Redirect to="/login" />
-                )
+                <Redirect to="/login" />
+              )
             }
           </Route>
         </Switch>

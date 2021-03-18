@@ -25,20 +25,23 @@ function Calendar({ setDates }) {
   const [endDate, setEndDate] = useState(null);
   const [loading, setLoading] = useState(false);
 
-
+  console.log(setDates)
   console.log(monthInCalendar, yearInCalendar, "month year huhhu");
   useEffect(() => {
+    console.log("1")
     if (yearIncreased !== 0) {
       setYearInCalendar(oy => oy + 1);
     }
   }, [yearIncreased]);
 
   useEffect(() => {
+    console.log("2")
     if (yearDecreased !== 0) {
       setYearInCalendar(oy => oy - 1);
     }
   }, [yearDecreased]);
   useEffect(() => {
+    console.log("3")
     setLoading(true);
     axios.get(GET_NUMBER_OF_POSTS_OF_A_MONTH, {
       headers: getAccessAuthHeader(),
@@ -56,10 +59,11 @@ function Calendar({ setDates }) {
         setLoading(false);
       })
       .catch(err => {
-          console.log(err);
-          setLoading(false);
-        }
+        console.log(err);
+        setLoading(false);
+      }
       );
+
   }, [monthInCalendar, yearInCalendar]);
 
   const buttonStyles = {
@@ -89,6 +93,7 @@ function Calendar({ setDates }) {
   }
 
   useEffect(() => {
+    console.log("4")
     if (startDateIsClicked) {
       setStartDate(`${dayInCalender}-${monthInCalendar}-${yearInCalendar}`);
       setDates(od => {
@@ -102,7 +107,7 @@ function Calendar({ setDates }) {
         return nd;
       });
     }
-  }, [monthInCalendar, dayInCalender, yearInCalendar, startDateIsClicked, endDateIsClicked, setDates, startDate, endDate]);
+  }, [monthInCalendar, dayInCalender, yearInCalendar, startDateIsClicked, endDateIsClicked, startDate, endDate]);
 
   useEffect(() => setStartDateIsClicked(true), []);
 
@@ -117,8 +122,8 @@ function Calendar({ setDates }) {
           ...buttonStyles,
           boxShadow: startDateIsClicked ? "inset 1px 3px 4px 0px rgba(0,0,0,0.3)" : "none"
         }} type="primary" shape="round"
-                icon={<FaCalendarAlt style={{ marginRight: "0.2em", borderColor: "transparent" }} />}
-                size="large">
+          icon={<FaCalendarAlt style={{ marginRight: "0.2em", borderColor: "transparent" }} />}
+          size="large">
           {startDateIsClicked ? `${dayInCalender}-${monthInCalendar}-${yearInCalendar}` : startDate ? startDate : "Start Date"}
         </Button>
         <CgArrowLongRight style={{ width: "4em", height: "4em" }} />
@@ -129,25 +134,25 @@ function Calendar({ setDates }) {
           ...buttonStyles,
           boxShadow: endDateIsClicked ? "inset 1px 3px 4px 0px rgba(0,0,0,0.3)" : "none"
         }} type="primary" shape="round"
-                icon={<FaCalendarAlt style={{ marginRight: "0.2em", borderColor: "transparent" }} />}
-                size="large">
+          icon={<FaCalendarAlt style={{ marginRight: "0.2em", borderColor: "transparent" }} />}
+          size="large">
           {endDateIsClicked ? `${dayInCalender}-${monthInCalendar}-${yearInCalendar}` : endDate ? endDate : "End Date"}
         </Button>
       </div>
       <div className="row2">
         <h3>{months[monthInCalendar - 1]}, {yearInCalendar}</h3>
         <div className="icons-container">
-                <span style={{
-                  cursor: "pointer",
-                  display: "inline-flex",
-                  justifyContent: "center",
-                  alignContent: "center",
-                  padding: "0.4em",
-                  borderRadius: "50%",
-                  backgroundColor: "gray",
-                  opacity: ".5",
-                  marginRight: "0.5em"
-                }}><FaLessThan onClick={decrementMonth} /></span>
+          <span style={{
+            cursor: "pointer",
+            display: "inline-flex",
+            justifyContent: "center",
+            alignContent: "center",
+            padding: "0.4em",
+            borderRadius: "50%",
+            backgroundColor: "gray",
+            opacity: ".5",
+            marginRight: "0.5em"
+          }}><FaLessThan onClick={decrementMonth} /></span>
           <span style={{
             cursor: "pointer",
             display: "inline-flex",
@@ -163,7 +168,7 @@ function Calendar({ setDates }) {
       <div className="calendar-core">
         {_.range(1, getDays(monthInCalendar, yearInCalendar) + 1).map((n) => (
           <DateComp month={monthInCalendar} year={yearInCalendar} day={dayInCalender} setDay={setDayInCalender}
-                    key={uuid()} dateNum={n} postCount={noOfPosts[n - 1]} />
+            key={uuid()} dateNum={n} postCount={noOfPosts[n - 1]} />
         ))}
         <Button
           onClick={() => {
