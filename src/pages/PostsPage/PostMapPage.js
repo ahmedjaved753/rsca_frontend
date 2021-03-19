@@ -30,13 +30,15 @@ import iconShadow from "leaflet/dist/images/marker-shadow.png";
 //auth context for whole application
 import { authContext } from "../../contexts/AuthContext/AuthProvider";
 //side menu for page
-import Navbar from '../../components/Navbar/Navbar'
+import Navbar from "../../components/Navbar/Navbar";
+import { storages, BACKEND_STATIC_STORAGE } from "../../settings";
 //-----setting marker icon settings and stuff------
 let DefaultIcon = L.icon({
   iconUrl: icon,
   shadowUrl: iconShadow,
-  iconAnchor: [12, 41],
+  iconAnchor: [12, 41]
 });
+
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
@@ -54,8 +56,6 @@ function PostMapPage() {
   } = useContext(
     PostsContext
   );
-
-
 
 
   /**
@@ -81,23 +81,35 @@ function PostMapPage() {
         key={props.marker.id}
       >
         <Popup>
-          <img
-            src={BASE + props.marker.imagePath.substring(1)}
-            width={200}
-            height={200}
-            alt=""
-          />
+          {
+            BACKEND_STATIC_STORAGE == storages.LOCAL_FS ? (
+              <img
+                src={BASE + props.marker.imagePath.substring(1)}
+                width={200}
+                height={200}
+                alt=""
+              />
+            ) : (
+              <img
+                src={props.marker.imagePath}
+                width={200}
+                height={200}
+                alt=""
+              />
+            )
+          }
+
         </Popup>
       </Marker>
     );
   }
 
   useEffect(() => {
-    posts?.map(p => setCenter(p.completePath[0]))
+    posts?.map(p => setCenter(p.completePath[0]));
   }, [posts]);
 
   function handleVectorClick(postid) {
-    setSelectedPostID(postid)
+    setSelectedPostID(postid);
   }
 
   return (
