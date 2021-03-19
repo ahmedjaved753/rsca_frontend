@@ -1,4 +1,4 @@
-export const BASE = "https://rcsa-api-posts.herokuapp.com/";
+export const BASE = "https://rcsa-api-main.herokuapp.com/";
 export const REGISTER = BASE + "api/users/register/";
 export const GET_TOKEN = BASE + "api/token/";
 export const REFRESH_TOKEN = BASE + "api/token/refresh/";
@@ -11,3 +11,4 @@ export const GET_NUMBER_OF_POSTS_OF_A_MONTH = BASE + "api/posts/post-count/";
 export const GET_POSTS_BY_DATE_RANGE = BASE + "api/posts/";
 export const GET_POST_MARKERS_BY_POST_ID = BASE + "api/posts/post-markers/";
 export const GET_POSTS_BY_ROI = BASE + "api/posts/roi/";
+export const POST_PASSWORD_RESET_EMAIL = BASE + "api/users/password-reset-send/";
