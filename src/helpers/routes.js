@@ -1,4 +1,4 @@
-export const BASE = "https://rcsa-api-posts.herokuapp.com/";
+export const BASE = "https://rcsa-api-main.herokuapp.com/";
 export const REGISTER = BASE + "api/users/register/";
 export const GET_TOKEN = BASE + "api/token/";
 export const REFRESH_TOKEN = BASE + "api/token/refresh/";
