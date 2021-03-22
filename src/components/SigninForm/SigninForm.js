@@ -11,7 +11,7 @@ import useFormData from '../../hooks/useFormData';
 
 import './signin-form.css'
 
-function SigninForm() {
+function SigninForm({ setModalIsOpen }) {
     const [loading, setLoading] = useState(false);
     const [formData, handleOnchange] = useFormData({ username: "", password: "" });
     const { login } = useContext(authContext)
@@ -40,7 +40,7 @@ function SigninForm() {
         <form className="signin-form" onSubmit={handleOnSubmit}>
             <Input placeholder="Username" value={formData.username} name="username" PrefixIcon={FaRegUser} onChange={handleOnchange} />
             <Input type="password" value={formData.password} placeholder="Password" name="password" PrefixIcon={FaKey} onChange={handleOnchange} />
-            <span className="forgot-password">Forgot Password</span>
+            <span onClick={() => setModalIsOpen(true)} className="forgot-password">Forgot Password</span>
             <Button loading={loading} htmlType="submit" style={{ alignSelf: "center", backgroundColor: "#5F2EEA", paddingRight: "30px", paddingLeft: "30px", }} type="primary" shape="round" size="large">
                 Login
             </Button>

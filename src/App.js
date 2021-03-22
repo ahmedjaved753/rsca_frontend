@@ -15,7 +15,7 @@ import Signin from "./pages/Signin/Signin";
 import Admin from "./pages/Admin/Admin";
 import Home from "./pages/Home/Home";
 import Search from "./pages/Search/Search";
-import Navbar from './components/Navbar/Navbar'
+import Posts from './components/Posts'
 import PostMapPage from "./pages/PostsPage/PostMapPage";
 import { PostsContextProvider } from "./contexts/PostsContext/postContext";
 import ROISearch from "./pages/ROISearch/ROISearch";
@@ -51,6 +51,9 @@ function App() {
           </Route>
           <Route exact path="/search">
             <Search />
+          </Route>
+          <Route exact path="/posts/all">
+            <Posts />
           </Route>
           <Route exact path="/">
             {

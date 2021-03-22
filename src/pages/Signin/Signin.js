@@ -8,15 +8,15 @@ import './Signin.css'
 
 function Signin() {
 
-    const [modalIsOpen, setModalIsOpen] = useState(true)
+    const [modalIsOpen, setModalIsOpen] = useState(false)
 
     return (
         <div className="signin-container">
             <RscaLogo />
             <DataVisualizationSVG />
-            <SigninForm />
+            <SigninForm setModalIsOpen={setModalIsOpen} />
             <Footer />
-            <PasswordResetModal modalIsOpen={modalIsOpen} />
+            <PasswordResetModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />
         </div>
     )
 }

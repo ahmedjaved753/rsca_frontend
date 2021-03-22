@@ -10,4 +10,5 @@
 .forgot-password {
   color: orange;
   align-self: flex-end;
+  cursor: pointer;
 }

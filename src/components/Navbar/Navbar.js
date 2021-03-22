@@ -118,7 +118,7 @@ export default function MenuAppBar() {
                                 onClose={handleClosePosts}
                             >
                                 <MenuItem onClick={handleClosePosts}><Link to='/'>Add Post</Link></MenuItem>
-                                <MenuItem onClick={handleClosePosts}>Delete Post</MenuItem>
+                                <MenuItem onClick={handleClosePosts}><Link to='/posts/all'>Delete Post</Link></MenuItem>
                                 <MenuItem onClick={handleClosePosts}>Delete Marker</MenuItem>
                             </Menu>
                         }
