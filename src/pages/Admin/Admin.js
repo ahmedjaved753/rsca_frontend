@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Button, message } from 'antd'
 import Modal from 'react-modal'
 import Input from '../../components/Inputbox/Inputbox';
+import Logo from "../../components/svgs/rsca_logo.png";
 import useFormData from '../../hooks/useFormData'
 import Navbar from '../../components/Navbar/Navbar'
 import UsersList from '../../components/UsersList/UsersList'
@@ -84,7 +85,14 @@ function Admin({ userType }) {
                     <UsersList users={users} usersRef={usersRef} setUsers={setUsers} setUserIsClicked={setUserIsClicked} setCurrentUser={setCurrentUser} loading={loading} />
                     <div className="verticle-line">
                     </div>
-                    {userIsClicked && <UserDetails setUsers={setUsers} user={currentUser} onUserDelete={onUserDelete} />}
+                    {userIsClicked ? (
+
+                        <UserDetails setUsers={setUsers} user={currentUser} onUserDelete={onUserDelete} />
+                    ) : (
+                        <img style={{ gridColumn: "6/8", height: "50%", width: "100%", justifySelf: "center", alignSelf: "center" }} src={Logo} alt="Logo" />
+                    )
+
+                    }
                     <AiFillPlusCircle onClick={() => setModalIsOpen(true)} style={{ position: 'fixed', bottom: "5vh", right: "5vw", width: "5em", height: "5em", color: "#5F2EEA", cursor: 'pointer' }} />
                     <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} style={{
                         overlay: {},

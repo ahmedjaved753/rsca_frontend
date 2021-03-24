@@ -3,7 +3,7 @@
   display: grid;
   padding-top: 1em;
   grid-template-rows: 10% 90%;
-  height: 100vh;
+  height: 100%;
 }
 
 .input-container {

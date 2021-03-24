@@ -62,6 +62,7 @@ function UserDetails({ user, setUsers, onUserDelete }) {
                         <option value="AD">Admin</option>
                     </select>
                     <Switch defaultChecked={formData.isActive} checked={formData.isActive} className="switch" onChange={v => setFormData({ ...formData, isActive: v })} />
+                    <h2 style={{ display: "inline", marginLeft: ".4rem" }}>{formData.isActive ? "Active" : "Inactive"}</h2>
                 </div>
                 <Button onClick={onSave} loading={saveLoading} style={{ alignSelf: "center", backgroundColor: "#5F2EEA", paddingRight: "30px", paddingLeft: "30px", display: "block", justifySelf: "center", marginTop: "0.5em" }} type="primary" shape="round" size="large">
                     Save
