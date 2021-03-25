@@ -5,5 +5,5 @@ export const storages = {
   DROPBOX: "dropbox"
 };
 
-export const BACKEND_STATIC_STORAGE = (BASE === "https://rcsa-api-static-store-move.herokuapp.com/") ? storages.DROPBOX : storages.LOCAL_FS;
-
+// export const BACKEND_STATIC_STORAGE = (BASE === "https://rcsa-api-static-store-move.herokuapp.com/") ? storages.DROPBOX : storages.LOCAL_FS;
+export const BACKEND_STATIC_STORAGE = storages.DROPBOX;

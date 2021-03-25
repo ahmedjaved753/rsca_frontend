@@ -1,5 +1,5 @@
-// export const BASE = "http://localhost:8000/api/";
-export const BASE = "https://rcsa-api-main.herokuapp.com/api/";
+export const BASE = "http://localhost:8000/api/";
+//export const BASE = "https://rcsa-api-main.herokuapp.com/api/";
 export const REGISTER = BASE + "users/register/";
 export const GET_TOKEN = BASE + "token/";
 export const REFRESH_TOKEN = BASE + "token/refresh/";
