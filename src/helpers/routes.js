@@ -15,4 +15,9 @@ export const GET_POSTS_BY_ROI = BASE + "posts/roi/";
 export const POST_PASSWORD_RESET_EMAIL = BASE + "users/password-reset-send/";
 export const RESET_PASSWORD = BASE + "users/password-reset-verify/";
 export const GET_POSTS = BASE + "posts/all/";
-export const DELETE_POST_BY_ID = id => `${BASE}posts/${id}/`
+export const DELETE_POST_BY_ID = id => `${BASE}posts/${id}/`;
+
+export const GET_POST_MARKERS_BY_POST_IDS = (ids) => {
+  ids = ids.join(",");
+  return GET_POST_MARKERS_BY_POST_ID + "?post_id=" + ids;
+};

@@ -60,6 +60,8 @@ function Search() {
       .catch((err) => {
         //if we get some error the
         //if it is error due to token invalidation
+        console.log(err)
+        return
         if (err.response.status === 401) {
           //refresh the token
           refreshAccessToken().then((response) => {
