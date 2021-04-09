@@ -30,13 +30,11 @@ export default function MenuAppBar() {
     const [postsEl, setPostsEl] = React.useState(null);
     const [userData, setUserData] = React.useState({});
 
-    const { logout } = useContext(authContext);
+    const { logout, getUsersData } = useContext(authContext);
 
 
     const logoutOpen = Boolean(logoutEl);
     const postsOpen = Boolean(postsEl);
-
-    const { getUsersData } = useContext(authContext);
 
 
     const handleMenuLogout = (event) => {

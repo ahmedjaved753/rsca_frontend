@@ -1,0 +1,59 @@
+.login-page-container {
+  height: 100vh;
+  width: 100vw;
+  background-image: url("../../components/svgs/login-background.jpg");
+  display: grid;
+  grid-template-rows: 95% 5%;
+  grid-template-columns: 100%;
+}
+
+.main-content-login {
+  height: 100%;
+  width: 100%;
+  grid-row: 1/2;
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.footer {
+  grid-row: 2/3;
+  background-color: black;
+  opacity: 0.8;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  color: white;
+}
+
+.login-form-container {
+  height: 100%;
+  width: 100%;
+  grid-column: 2/3;
+  display: grid;
+  justify-content: center;
+  /* align-items: center; */
+  /* background-color: white; */
+}
+
+.description {
+  display: grid;
+  align-items: center;
+  background-color: grey;
+  opacity: 0.9;
+  color: white;
+}
+
+.text {
+  width: 60%;
+  padding-left: 1rem;
+}
+
+.logo {
+  display: block;
+  position: absolute;
+  left: 27rem;
+  top: 5rem;
+  max-width: 360px;
+  max-height: 180px;
+  width: auto;
+  height: auto;
+}

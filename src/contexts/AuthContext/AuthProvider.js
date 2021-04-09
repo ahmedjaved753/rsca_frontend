@@ -15,7 +15,7 @@ export function AuthProvider(props) {
         setIsAuthenticated(true);
         console.log("getting user type...");
         getAndSetUserType();
-        history.push('/admin')
+        history.push('/landing-page')
     }
 
     function logout() {

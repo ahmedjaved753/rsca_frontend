@@ -1,0 +1,51 @@
+.login-form {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  width: 100%;
+  height: 70%;
+  justify-self: center;
+  align-self: center;
+}
+
+.input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+}
+
+input {
+  border: none;
+  outline: none;
+}
+
+.login-submit-button {
+  background-color: orange;
+  border-radius: 5px;
+  padding: 0.4rem 2rem;
+  color: white;
+  display: inline;
+  justify-self: center;
+  outline: none;
+  cursor: pointer;
+}
+
+.loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

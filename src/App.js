@@ -15,17 +15,18 @@ import Signin from "./pages/Signin/Signin";
 import Admin from "./pages/Admin/Admin";
 import Home from "./pages/Home/Home";
 import Search from "./pages/Search/Search";
+import Landing from "./pages/Landing";
 import Posts from './components/Posts'
 import PostMapPage from "./pages/PostsPage/PostMapPage";
 import { PostsContextProvider } from "./contexts/PostsContext/postContext";
 import ROISearch from "./pages/ROISearch/ROISearch";
-
+import Login from "./pages/Login";
 import { authContext } from "./contexts/AuthContext/AuthProvider";
 
 
 function App() {
   const { init, userType, isAuthenticated } = useContext(authContext);
-  console.log("app rerendring");
+  // console.log("app rerendring");
 
   useEffect(() => {
     init();
@@ -37,8 +38,11 @@ function App() {
           <Route exact path="/signup">
             <Signup />
           </Route>
-          <Route exact path="/login">
+          <Route exact path="/login2">
             <Signin />
+          </Route>
+          <Route exact path="/login">
+            <Login />
           </Route>
           <Route exact path="/roi">
             <ROISearch />
@@ -55,6 +59,9 @@ function App() {
           <Route exact path="/posts/all">
             <Posts />
           </Route>
+          <Route exact path="/landing-page">
+            <Landing />
+          </Route>
           <Route exact path="/">
             {
               isAuthenticated ? (
@@ -67,7 +74,6 @@ function App() {
         </Switch>
       </div>
     </PostsContextProvider>
-    // <Navbar />
   );
 }
 
